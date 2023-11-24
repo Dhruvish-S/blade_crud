@@ -82,7 +82,7 @@
 
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Profile_pic</label>
-            <input type="file" value="{{ old('profile_pic') }}" accept="image/png, image/gif, image/jpeg"  class="form-control" id="selectImage" name="profile_pic">
+            <input type="file" value="{{ old('profile_pic') }}" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
             @if ($errors->has('profile_pic'))
                 <li style="color:red">{{ $errors->first('profile_pic') }}</li>
             @endif

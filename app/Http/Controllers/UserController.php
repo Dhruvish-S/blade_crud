@@ -48,4 +48,10 @@ class UserController extends Controller
             return redirect('/users')->with('error', 'Something went wrong.');
         }
     }
+    public function index()
+    {
+        $userServices = new UserServices();
+        $query = $userServices->get();
+        return view('users/index',['users' => $query]);
+    }
 }

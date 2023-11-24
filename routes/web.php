@@ -21,6 +21,13 @@ Route::get('/', function () {
 
 Route::get('/register',['App\Http\Controllers\UserController','create'])->name('register');
 
-Route::get('/login',['App\Http\Controllers\LoginController','create'])->name('login');
-
 Route::post('users/store',['App\Http\Controllers\UserController','store'])->name('users/store');
+
+
+Route::get('/login',['App\Http\Controllers\LoginController','create'])->name('login');
+Route::post('login/store',['App\Http\Controllers\LoginController','store'])->name('login/store');
+
+Route::get('/dashboard',['App\Http\Controllers\LoginController','dashboard'])->name('dashboard');
+
+Route::get('/users',['App\Http\Controllers\UserController','index'])->name('users');
+

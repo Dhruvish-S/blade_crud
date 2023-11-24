@@ -14,9 +14,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('/register',['App\Http\Controllers\UserController','create'])->name('register');
@@ -24,7 +24,7 @@ Route::get('/register',['App\Http\Controllers\UserController','create'])->name('
 Route::post('users/store',['App\Http\Controllers\UserController','store'])->name('users/store');
 
 
-Route::get('/login',['App\Http\Controllers\LoginController','create'])->name('login');
+Route::get('/',['App\Http\Controllers\LoginController','create'])->name('/');
 Route::post('login/store',['App\Http\Controllers\LoginController','store'])->name('login/store');
 
 Route::get('/dashboard',['App\Http\Controllers\LoginController','dashboard'])->name('dashboard');

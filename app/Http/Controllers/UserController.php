@@ -17,12 +17,12 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|alpha',
             'last_name' => 'required|alpha',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password',
-            'dob' => 'required',
+            'email' => 'email:rfc,dns|required|unique:users,email|email',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|same:password|min:8',
+            'dob' => 'required|date|before:-18 years',
             'gender' => 'required',
-            'phone' => 'required|integer|max:11|min:10',
+            'phone' => 'required|integer|digits:10',
             'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 

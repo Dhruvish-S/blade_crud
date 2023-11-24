@@ -10,7 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>List Users</h1>
+    <div class="text" style="margin-bottom: 60px">
+        <h1 style="margin: 20px">List Users</h1>
+        <td><a class="btn btn-primary" style="float: right; margin-right: 50px" href="{{ url('register')}}">Add User</a></td>
+    </div>
+
 <div class="container">
     <table class="table">
         <thead>
@@ -23,6 +27,7 @@
             <th scope="col">Gender</th>
             <th scope="col">Phone</th>
             <th scope="col">Profile Pic</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +43,8 @@
                     <td>
                         <img src="{{asset('uploads/'. $user->profile_pic)}}"width="100" height="150">
                     </td>
+                    <td><a class="btn btn-success" href="{{ url('users/edit', $user->id) }}">Edit</a></td>
+                    <td><a class="btn btn-danger" href="{{ url('users/delete', $user->id) }}" onclick="return confirm('Are you sure want to delete?')">Delete</a></td>
 
                 </tr>
           @endforeach

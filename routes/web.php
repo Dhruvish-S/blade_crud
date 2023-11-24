@@ -31,3 +31,10 @@ Route::get('/dashboard',['App\Http\Controllers\LoginController','dashboard'])->n
 
 Route::get('/users',['App\Http\Controllers\UserController','index'])->name('users');
 
+Route::get('users/delete/{id}',['App\Http\Controllers\UserController','delete']);
+
+Route::get('users/edit/{id}',['App\Http\Controllers\UserController','edit']);
+
+Route::put('users/update/{id}',['App\Http\Controllers\UserController','update']);
+
+Route::get('logout',['App\Http\Controllers\LogoutController','perform']);

@@ -7,7 +7,7 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h3>Welecome to  the dashboard</h3>
+    <h3>Welecome to  the dashboard </h3>
 
     <a href="{{ url('logout') }}">LogOut</a>
 </body>

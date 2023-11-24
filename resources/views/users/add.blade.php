@@ -12,7 +12,6 @@
 <body>
 <div class="container" style="margin-top: 40px">
 
-    {{-- <h1 text-align="center">User Register</h1> --}}
      <h2>@if (isset($users)) Edit @else Add @endif User</h2>
 
         @if (isset($users))
@@ -127,9 +126,9 @@
                 class="form-control"
             /><br/>
             <img src="{{asset('uploads/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
-            {{-- @if ($errors->has('profile_pic'))
+            @if ($errors->has('profile_pic'))
                 <li style="color:red">{{ $errors->first('profile_pic') }}</li>
-            @endif --}}
+            @endif
         </div>
     @else
 

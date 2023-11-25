@@ -356,7 +356,7 @@
 
 
         if (age < 18) {
-            alert("User date of birth not correct")
+            alert("User date of birth not correct......")
             return false;
         }
         if (age_month < 0 || (age_month == 0 && age_day < 0)) {

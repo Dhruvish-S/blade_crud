@@ -175,21 +175,21 @@
         }
 
 
-            function validateForm()
-            {
-                var first_name = document.getElementById('first_name').value;
-                var last_name = document.getElementById('last_name').value;
-                var emails = document.getElementById('email').value;
-                var pass = document.getElementById('password').value;
-                var confirmpass = document.getElementById('confirm_password').value;
-                var birthdate = document.getElementById('dob').value;
-                var gender = document.getElementsByName('gender');
-                var phone = document.getElementById('phone').value;
-                var profile_pi = document.getElementById('selectImage').value;
+        function validateForm()
+        {
+            var first_name = document.getElementById('first_name').value;
+            var last_name = document.getElementById('last_name').value;
+            var emails = document.getElementById('email').value;
+            var pass = document.getElementById('password').value;
+            var confirmpass = document.getElementById('confirm_password').value;
+            var birthdate = document.getElementById('dob').value;
+            var gender = document.getElementsByName('gender');
+            var phone = document.getElementById('phone').value;
+            var profile_pi = document.getElementById('selectImage').value;
 
-                var pattern=/[0-9]{digit}/;
-                var genValue = false;
-                var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+            var pattern=/[0-9]{digit}/;
+            var genValue = false;
+            var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
 
 
 // Firstname validation
@@ -270,10 +270,10 @@
 //Date of birth validation=
 
 
-            if(birthdate == ""){
-                document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
-                return false;
-            }
+            // if(birthdate == ""){
+            //     document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
+            //     return false;
+            // }
 
 
 
@@ -355,8 +355,8 @@
         var age_day = nowday - birthday;
 
 
-        if (age > 100) {
-            alert("Age cannot be more than 100 Years.Please enter correct age")
+        if (age < 18) {
+            alert("User date of birth not correct")
             return false;
         }
         if (age_month < 0 || (age_month == 0 && age_day < 0)) {

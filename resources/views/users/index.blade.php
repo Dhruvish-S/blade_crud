@@ -50,7 +50,7 @@
             <td>{{ $user->dob }}</td>
             <td>{{ $user->gender }}</td>
             <td>{{ $user->phone }}</td>
-            <td><img src="{{asset('uploads/'. $user->profile_pic)}}"width="100" height="150"></td>
+            <td><img src="{{asset('uploads/'. $user->profile_pic)}}" alt="profile_pic" title="profile_pic" width="100" height="150"></td>
             <td>
                 <a class="btn btn-success" href="{{ url('users/edit', $user->id) }}">Edit</a>
                 <a class="btn btn-danger" href="{{ url('users/delete', $user->id) }}" onclick="return confirm('Are you sure want to delete?')">Delete</a>

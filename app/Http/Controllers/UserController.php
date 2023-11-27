@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
 use Storage;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     public function create()
@@ -26,18 +28,19 @@ class UserController extends Controller
             'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // $fileName = time().'.'.$request->profile_pic->extension();
-        // $request->profile_pic->move(public_path('uploads'), $fileName);
+        $fileName = time().'.'.$request->profile_pic->extension();
+        $request->profile_pic->move(public_path('uploads'), $fileName);
 
         $inputArray = array(
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            // 'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'dob' => $request->dob,
             'gender' => $request->gender,
             'phone' => $request->phone,
-            // 'profile_pic' => $fileName,
+            'profile_pic' => $fileName,
         );
 
         $userServices = new UserServices();

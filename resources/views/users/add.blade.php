@@ -309,8 +309,10 @@
             document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
+        underAgeValidate(birthdate)
+        // document.getElementById('birthdate').innerHTML =" ** The date difference is less than -18 years";
+        // return false
 
-        underAgeValidate(birthdate);
 
 
 //Gender validation
@@ -368,7 +370,7 @@
 // date of birth validation
 
     function underAgeValidate(birthday) {
-
+console.log('hi');
         const date = new Date();
         let day = date.getDate();
         let month = date.getMonth() + 1;
@@ -388,13 +390,12 @@
         var timeDifference = date1Object.getTime() - date2Object.getTime();
         var yearDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
 
-       if(yearDifference < 18){
-            document.getElementById('birthdate').innerHTML =" ** The date difference is less than 18- years";
+       if(yearDifference <= 18){
+            document.getElementById('birthdate').innerHTML =" ** The date difference is less than -18 years";
             return false;
         }
         else{
             document.getElementById('birthdate').innerHTML ="";
-            return false;
         }
     }
 

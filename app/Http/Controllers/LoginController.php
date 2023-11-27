@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
@@ -38,10 +39,8 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
             return redirect()->intended('dashboard');
         }
 
@@ -50,7 +49,6 @@ class LoginController extends Controller
         ])->onlyInput('email');
 
     }
-
     public function dashboard(){
         return view('users/dashboard');
     }

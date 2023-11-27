@@ -47,25 +47,27 @@ class UserController extends Controller
         $query = $userServices->add($inputArray);
 
         if($query) {
-            return redirect('/users')->with('success', 'User added successfully.');
+            return redirect('/users/dashboard')->with('success', 'User added successfully.');
         } else {
-            return redirect('/users')->with('error', 'Something went wrong.');
+            return redirect('/users/dashboard')->with('error', 'Something went wrong.');
         }
     }
     public function index()
     {
         $userServices = new UserServices();
         $query = $userServices->get();
-        return view('users/index',['users' => $query]);
+
+        return view('users/dashboard',['users' => $query]);
+        // return view('users/index',['users' => $query]);
     }
     public function delete($id)
     {
         $userServices = new UserServices();
         $query = $userServices->delete($id);
         if($query) {
-            return redirect('/users')->with('success', 'User deleted successfully.');
+            return redirect('/users/dashboard')->with('success', 'User deleted successfully.');
         } else {
-            return redirect('/users')->with('error', 'Something went wrong.');
+            return redirect('/users/dashboard')->with('error', 'Something went wrong.');
         }
     }
     public function edit($id)
@@ -88,7 +90,6 @@ class UserController extends Controller
             'profile_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-
         if($request->file('profile_pic'))
         {
             // echo 'if';
@@ -97,7 +98,6 @@ class UserController extends Controller
 
             $fileName = time().'.'.$request->profile_pic->extension();
             $request->profile_pic->move(public_path('uploads'), $fileName);
-
         }
 
         $inputArray = array(
@@ -117,9 +117,9 @@ class UserController extends Controller
         $query = $userServices->update($id,$inputArray);
 
         if($query) {
-            return redirect('/users')->with('success', 'User updated successfully.');
+            return redirect('/users/dashboard')->with('success', 'User updated successfully.');
         } else {
-            return redirect('/users')->with('error', 'Something went wrong.');
+            return redirect('/users/dashboard')->with('error', 'Something went wrong.');
         }
 
     }

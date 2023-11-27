@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="container" style="margin-top:40px">
+    <a class="btn btn-primary" style="float:right"  href="{{ url('register')}}">Add User</a>
     <h1>Login Form</h1>
     <form method="post" action="{{ url('login/store') }}">
         @csrf

@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.app')
+@section('content')
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <title>User Register | Edit</title>
 </head>
 <body>
 <div class="container" style="margin-top: 40px">
@@ -74,8 +68,6 @@
                 <li style="color:red">{{ $errors->first('password') }}</li>
             @endif
         </div>
-
-
         <span id="password12" style="color:blue; font-weight:500"></span>
 
         <div class="mb-3">
@@ -158,8 +150,14 @@
 
     @endif
 
+    @if(isset($users))
+        <button type="submit" class="btn btn-primary" name="submit" value="submit" id="btn">Update</button>
+        <a class="btn btn-primary " href="{{ url('users/dashboard') }}">Back</a>
+    @else
         <button type="submit" class="btn btn-primary" name="submit" value="submit" id="btn">Submit</button>
-      </form>
+        <a class="btn btn-primary " href="{{ url('/') }}">login</a>
+    @endif
+    </form>
 </div>
 
 </body>
@@ -187,9 +185,16 @@
             var phone = document.getElementById('phone').value;
             var profile_pi = document.getElementById('selectImage').value;
 
-            var pattern=/[0-9]{digit}/;
+            // var pattern=/[0-9]{digit}/;
             var genValue = false;
-            var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+            // var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+            var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+            var isContainsUppercase = /^(?=.*[A-Z]).*$/;
+            var isContainsLowercase = /^(?=.*[a-z]).*$/;
+            var isContainsNumber = /^(?=.*[0-9]).*$/;
+            var isContainsSymbol =/^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/;
+            var isNonWhiteSpace = /^\S*$/;
 
 
 // Firstname validation
@@ -245,12 +250,34 @@
 
 // Password validation
 
+
+
             if(pass == ""){
 				document.getElementById('password12').innerHTML =" ** Please fill the password field";
 				return false;
 			}
-			else if((pass.length <= 5) || (pass.length > 20)) {
-				document.getElementById('password12').innerHTML =" ** Passwords lenght must be between  5 and 20";
+            else if (!isContainsUppercase.test(pass)) {
+                document.getElementById('password12').innerHTML =" ** Password must have at least one Uppercase Character.";
+                return false;
+            }
+            else if (!isContainsLowercase.test(pass)) {
+                document.getElementById('password12').innerHTML =" ** Password must have at least one Lowercase Character.";
+                return false;
+            }
+            else if (!isContainsNumber.test(pass)) {
+                document.getElementById('password12').innerHTML =" ** Password must contain at least one Digit.";
+                return false;
+            }
+            else if (!isContainsSymbol.test(pass)) {
+                document.getElementById('password12').innerHTML =" ** Password must contain at least one Special Symbol";
+				return false;
+            }
+            else if (!isNonWhiteSpace.test(pass)) {
+                document.getElementById('password12').innerHTML =" ** Password must not contain Whitespaces";
+				return false;
+            }
+            else if(pass.length!=8) {
+				document.getElementById('password12').innerHTML =" ** Passwords length must be 8 Characters";
 				return false;
 			}
             else{
@@ -269,21 +296,26 @@
 				document.getElementById('confrmpass').innerHTML =" ** Please fill the confirmpassword field";
 				return false;
 			}
+            else if(confirmpass.length!=8) {
+				document.getElementById('confrmpass').innerHTML =" ** Confirm Passwords length must be 8 Characters";
+				return false;
+			}
             else{
                 document.getElementById('confrmpass').innerHTML ="";
             }
 
-//Date of birth validation=
-
-
+//Date of birth validation
         if(birthdate == ""){
             document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
-        underAgeValidate(birthdate);
+        underAgeValidate(birthdate)
+        // document.getElementById('birthdate').innerHTML =" ** The date difference is less than -18 years";
+        // return false
+
+
 
 //Gender validation
-
         for(var i=0; i<gender.length;i++){
             if(gender[i].checked == true){
                 genValue = true;
@@ -296,6 +328,8 @@
         else{
             document.getElementById('radio').innerHTML ="";
         }
+
+
 
 //Phone validation
 
@@ -334,41 +368,39 @@
 
     }
 // date of birth validation
+
     function underAgeValidate(birthday) {
+console.log('hi');
+        const date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let currentDate = `${day}-${month}-${year}`;
 
-        var today = new Date();
-        var nowyear = today.getFullYear();
-        var nowmonth = today.getMonth();
-        var nowday = today.getDate();
-        // var b = document.getElementById('<%=TextBox2.ClientID%>').value;
+        const newBirthdate = new Date(birthday);
+        let birday = newBirthdate.getDate();
+        let birmonth = newBirthdate.getMonth() + 1;
+        let biryear = newBirthdate.getFullYear();
+        let changeBirthDate = `${birday}-${birmonth}-${biryear}`;
 
+        var date1Components = currentDate.split('-');
+        var date2Components = changeBirthDate.split('-');
+        var date1Object = new Date(date1Components[2], date1Components[1] - 1, date1Components[0]);
+        var date2Object = new Date(date2Components[2], date2Components[1] - 1, date2Components[0]);
+        var timeDifference = date1Object.getTime() - date2Object.getTime();
+        var yearDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
 
-
-        var birth = new Date(birthday);
-
-        var birthyear = birth.getFullYear();
-        var birthmonth = birth.getMonth();
-        var birthday = birth.getDate();
-
-        var age = nowyear - birthyear;
-        var age_month = nowmonth - birthmonth;
-        var age_day = nowday - birthday;
-
-
-        if (age < 18) {
-            alert("User date of birth not correct......")
+       if(yearDifference <= 18){
+            document.getElementById('birthdate').innerHTML =" ** The date difference is less than -18 years";
             return false;
         }
-        if (age_month < 0 || (age_month == 0 && age_day < 0)) {
-            age = parseInt(age) - 1;
+        else{
+            document.getElementById('birthdate').innerHTML ="";
+        }
+    }
 
 
-        }
-        if ((age == 18 && age_month <= 0 && age_day <= 0) || age < 18) {
-            alert("Age should be more than 18 years.Please enter a valid Date of Birth");
-            return false;
-        }
-    };
 
     </script>
 </html>
+@endsection

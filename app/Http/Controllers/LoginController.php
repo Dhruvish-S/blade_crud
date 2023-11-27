@@ -10,31 +10,12 @@ use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
-    public function create()
+    public function index()
     {
         return view('users/login');
     }
-    public function store(Request $request)
+    public function login(Request $request)
     {
-        // $request->validate([
-        //     'email' => 'required',
-        //     'password' => 'required',
-        // ]);
-
-        // $user = User::where('email', $request->input('email'))->first();
-        // if ($user && Hash::check($request->input('password'), $user->password)) {
-        //     $request->session()->put('loginId' , $user->id,);
-        //     return redirect()->route('dashboard');
-
-        // }
-        // else{
-        //     return back()->with([
-        //         'fail' => 'The provided credentials do not match our records.',
-        //     ]);
-        // }
-
-
-
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -43,7 +24,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             Auth::user();
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('users/dashboard');
         }
 
         return back()->withErrors([

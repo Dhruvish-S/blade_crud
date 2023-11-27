@@ -22,7 +22,8 @@
 <body>
     <div class="text" style="margin-bottom: 60px">
         <h1 style="margin: 20px">List Users</h1>
-        <td><a class="btn btn-primary" style="float: right; margin-right: 50px;margin-top:-44px" href="{{ url('register')}}">Add User</a></td>
+        <td><a class="btn btn-primary" style="float: right; margin-right: 104px;margin-top:-44px" href="{{ url('register')}}">Add User</a></td>
+        <td><a class="btn btn-primary" style="float: right; margin-top:-44px;margin-right:16px; " href="{{ url('logout') }}">LogOut</a><td></td>
     </div>
 
 <div class="container">

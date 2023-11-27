@@ -97,7 +97,7 @@
             <span id="birthdate" style="color:blue; font-weight:500"> </span>
         </div>
 
-    {{-- @if (isset($users))
+    @if (isset($users))
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gender: </label>
             <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" {{ $users->gender == 'Male' ? 'checked' : '' }} > Male
@@ -106,7 +106,7 @@
                 <li style="color:red">{{ $errors->first('gender') }}</li>
             @endif
         </div>
-    @else --}}
+    @else
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gender: </label>
             <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(old('gender') == 'Male') checked @endif > Male
@@ -117,7 +117,7 @@
             <span id="radio" style="color:blue; font-weight:500"></span>
         </div>
 
-    {{-- @endif --}}
+    @endif
 
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Phone</label>
@@ -200,7 +200,12 @@
 			}else if((first_name.length <= 2) || (first_name.length > 20)) {
 				document.getElementById('firstname').innerHTML =" *Firstname lenght must be between  2 and 20* ";
 				return false;
-			}else{
+			}else if(!isNaN(first_name)){
+				document.getElementById('firstname').innerHTML =" ** only characters are allowed";
+				return false;
+			}
+
+            else{
                 document.getElementById('firstname').innerHTML ="";
 
             }
@@ -213,7 +218,8 @@
 			}else if((last_name.length <= 2) || (last_name.length > 20)) {
 				document.getElementById('lastname').innerHTML =" *Lastname lenght must be between  2 and 20* ";
 				return false;
-			}else{
+			}
+            else{
                 document.getElementById('lastname').innerHTML ="";
 
             }
@@ -270,17 +276,11 @@
 //Date of birth validation=
 
 
-            // if(birthdate == ""){
-            //     document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
-            //     return false;
-            // }
-
-
-
-        underAgeValidate(birthdate)
-
-
-        return false
+        if(birthdate == ""){
+            document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
+            return false;
+        }
+        underAgeValidate(birthdate);
 
 //Gender validation
 
@@ -333,7 +333,7 @@
             }
 
     }
-
+// date of birth validation
     function underAgeValidate(birthday) {
 
         var today = new Date();

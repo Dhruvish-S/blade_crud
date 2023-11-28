@@ -19,7 +19,7 @@
         $('#example').DataTable();
     });
     </script>
-
+    <title>@yield('title')</title>
 </head>
 <body>
     <div id="app">

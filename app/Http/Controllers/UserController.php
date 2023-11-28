@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\UserServices;
 use Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -42,7 +43,6 @@ class UserController extends Controller
             'phone' => $request->phone,
             'profile_pic' => $fileName,
         );
-
         $userServices = new UserServices();
         $query = $userServices->add($inputArray);
 
@@ -79,7 +79,6 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'first_name' => 'required|alpha',
             'last_name' => 'required|alpha',
@@ -89,6 +88,9 @@ class UserController extends Controller
             'phone' => 'required|integer',
             'profile_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+        $userServices = new UserServices();
+        $singleUserRecord = $userServices->getById($id);
+
 
         if($request->file('profile_pic'))
         {
@@ -96,8 +98,13 @@ class UserController extends Controller
             // $fileName = time().'.'.$request->file('profile_pic')->extension();
             // $request->file('profile_pic')->move(public_path('uploads'), $fileName);
 
+            if(File::exists(public_path('uploads/').$singleUserRecord[0]->profile_pic)) {
+                File::delete(public_path('uploads/').$singleUserRecord[0]->profile_pic);
+            }
+
             $fileName = time().'.'.$request->profile_pic->extension();
             $request->profile_pic->move(public_path('uploads'), $fileName);
+
         }
 
         $inputArray = array(
@@ -113,7 +120,7 @@ class UserController extends Controller
         if($request->file('profile_pic')){
             $inputArray['profile_pic'] = $fileName;
         }
-        $userServices = new UserServices();
+
         $query = $userServices->update($id,$inputArray);
 
         if($query) {

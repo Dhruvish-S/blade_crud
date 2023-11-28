@@ -10,11 +10,11 @@ use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function login()
     {
         return view('users/login');
     }
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -27,9 +27,9 @@ class LoginController extends Controller
             return redirect()->intended('users/dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return back()->with([
+            'fail' => 'The provided credentials do not match our records.',
+        ]);
 
     }
     public function dashboard(){

@@ -3,17 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -21,17 +10,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/register',['App\Http\Controllers\UserController','create'])->name('register');
 Route::post('users/store',['App\Http\Controllers\UserController','store'])->name('users/store');
-Route::get('/',['App\Http\Controllers\LoginController','index'])->name('/');
-
-Route::post('login/store',['App\Http\Controllers\LoginController','login'])->name('login/store');
-
-
-
-
+Route::get('/',['App\Http\Controllers\LoginController','login'])->name('/');
+Route::post('login',['App\Http\Controllers\LoginController','authenticate'])->name('login');
 Route::get('logout',['App\Http\Controllers\LogoutController','perform']);
-
-
-
 
 Route::middleware('auth')->group(function () {
 
@@ -41,7 +22,4 @@ Route::middleware('auth')->group(function () {
     Route::get('users/edit/{id}',['App\Http\Controllers\UserController','edit']);
     Route::put('users/update/{id}',['App\Http\Controllers\UserController','update']);
     Route::get('/dashboard',['App\Http\Controllers\LoginController','dashboard'])->name('dashboard');
-
-
-
 });

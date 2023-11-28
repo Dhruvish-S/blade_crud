@@ -13,7 +13,7 @@
 <div class="container" style="margin-top:40px">
     <a class="btn btn-primary" style="float:right"  href="{{ url('register')}}">Add User</a>
     <h1>Login Form</h1>
-    <form method="post" action="{{ url('login/store') }}">
+    <form method="post" action="{{ url('login') }}">
         @csrf
 
         @if(Session::has('success'))
@@ -45,3 +45,4 @@
 </div>
 </body>
 </html>
+

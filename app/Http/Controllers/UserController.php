@@ -8,6 +8,7 @@ use Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use DataTables;
+use Mail;
 
 class UserController extends Controller
 {
@@ -42,8 +43,22 @@ class UserController extends Controller
             'phone' => $request->phone,
             'profile_pic' => $fileName,
         );
+
+        $email_data = array(
+            'first_name' => $request->first_name,
+            'email' => $request->email,
+        );
+
+        Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
+            $message->to($email_data['email'], $email_data['first_name'])
+                ->subject('Welcome to MyNotePaper')
+                ->from('dhruvishpatoliya638@gmail.com', 'MyNotePaper');
+        });
+
         $userServices = new UserServices();
         $query = $userServices->add($inputArray);
+
+
 
         if($query) {
             return redirect('users/dashboard')->with('success', 'User added successfully.');

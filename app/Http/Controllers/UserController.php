@@ -7,6 +7,8 @@ use App\Services\UserServices;
 use Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use DataTables;
+use Mail;
 
 class UserController extends Controller
 {
@@ -16,7 +18,6 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-
         $request->validate([
             'first_name' => 'required|alpha',
             'last_name' => 'required|alpha',
@@ -42,28 +43,60 @@ class UserController extends Controller
             'phone' => $request->phone,
             'profile_pic' => $fileName,
         );
+
+        $email_data = array(
+            'first_name' => $request->first_name,
+            'email' => $request->email,
+        );
+
+        Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
+            $message->to($email_data['email'], $email_data['first_name'])
+                ->subject('Welcome to MyNotePaper')
+                ->from('dhruvishpatoliya638@gmail.com', 'MyNotePaper');
+        });
+
         $userServices = new UserServices();
         $query = $userServices->add($inputArray);
 
+
+
         if($query) {
-            return redirect('/users/dashboard')->with('success', 'User added successfully.');
+            return redirect('users/dashboard')->with('success', 'User added successfully.');
         } else {
-            return redirect('/users/dashboard')->with('error', 'Something went wrong.');
+            return redirect('users/dashboard')->with('error', 'Something went wrong.');
         }
     }
-    public function index()
+    public function index(Request $request)
     {
         $userServices = new UserServices();
-        $query = $userServices->get();
+        // $query = $userServices->get();
+        // return view('users/dashboard',['users' => $query]);
+        // // return view('users/index',['users' => $query]);
 
-        return view('users/dashboard',['users' => $query]);
-        // return view('users/index',['users' => $query]);
+        if ($request->ajax()) {
+            $data = $userServices->get();
+            return Datatables::of($data)->addIndexColumn()
+            ->addColumn('profile_pic', function($row){
+                $data = asset('uploads/'.$row->profile_pic);
+                return $data;
+            })
+                ->addColumn('action', function($row){
+                    $btn = '<a class="btn btn-success btn" href=' . url('users/edit', $row->id) . '>Edit</a>
+                    <button href="javascript:void(0);" class="btn btn-danger delete" id="delete" data-id='. $row->id .'>Delete</button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('users/dashboard');
+
     }
     public function delete($id)
     {
         $userServices = new UserServices();
         $query = $userServices->delete($id);
-        if($query) {
+        if($query == 1) {
             return redirect('/users/dashboard')->with('success', 'User deleted successfully.');
         } else {
             return redirect('/users/dashboard')->with('error', 'Something went wrong.');

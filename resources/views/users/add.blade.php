@@ -119,10 +119,18 @@
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script>
+<script>
+    var currentDate = new Date();
+    var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+    var formattedMaxDate = maxDate.toISOString().split('T')[0];
+    document.getElementById("dob").setAttribute("max", formattedMaxDate);
+</script>
+
+    {{-- <script>
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('dob').setAttribute('max', today);
-    </script>
+    </script> --}}
+
     <script>
 
         selectImage.onchange = evt => {
@@ -160,7 +168,6 @@
 
 
 // Firstname validation
-
             const errorMessage = (
                     first_name == "" ? "** Please fill the First name field" :
                     first_name.length <= 2 || first_name.length > 20 ? "*Firstname length must be between 2 and 20*" :
@@ -171,10 +178,6 @@
             if(errorMessage != ""){
                 return false;
             }
-
-
-
-
 // Lastname validation
 
             if(last_name == ""){

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->date('dob');
             $table->string('gender');
-            $table->integer('phone');
+            $table->bigInteger('phone');
             $table->string('profile_pic');
             $table->rememberToken();
             $table->timestamps();

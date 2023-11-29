@@ -2,28 +2,28 @@
 @section('title') User Register | Edit @endsection
 @section('content')
 
-<div class="container" style="margin-top: 40px">
-
-     <h2>@if (isset($users)) Edit @else Add @endif User</h2>
-
-        @if (isset($users))
-            <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">
-            @method('PUT')
-        @else
-            <form action="{{ route('users/store') }}" method="POST" enctype="multipart/form-data" id="form" name="userForm" onsubmit="return validateForm()">
-        @endif
-
-        @csrf
-        <div class="mb-3">
-          <label for="first_name" class="form-label">First name</label>
-          <input type="text" class="form-control" id="first_name"  value="{{ old('first_name', $users->first_name ?? '') }}" name="first_name">
-            @if ($errors->has('first_name'))
-                    <li style="color:red">{{ $errors->first('first_name') }}</li>
-            @endif
-            <span id="firstname" style="color:blue; font-weight:500"> </span>
+<div class="container" style="border:2px solid black">
+    <h2 style="margin:30px">@if (isset($users)) Edit @else Add @endif User</h2>
+    @if (isset($users))
+        <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">
+        @method('PUT')
+    @else
+        <form action="{{ url('users/store') }}" method="POST" enctype="multipart/form-data" id="form" name="userForm" onsubmit="return validateForm()">
+    @endif
+    @csrf
+    <div class="row">
+      <div class="col-sm">
+        <div class="mb-6">
+            <label for="first_name" class="form-label">First name</label>
+            <input type="text" class="form-control" id="first_name"  value="{{ old('first_name', $users->first_name ?? '') }}" name="first_name">
+              @if ($errors->has('first_name'))
+                      <li style="color:red">{{ $errors->first('first_name') }}</li>
+              @endif
+              <span id="firstname" style="color:blue; font-weight:500"> </span>
         </div>
-
-        <div class="mb-3">
+      </div>
+      <div class="col-sm">
+        <div class="mb-6">
             <label for="last_name" class="form-label">Last name</label>
             <input type="text" class="form-control" id="last_name" value="{{ old('last_name', $users->last_name ?? '') }}" name="last_name" value="{{ old('last_name') }}">
             @if ($errors->has('last_name'))
@@ -31,108 +31,138 @@
             @endif
             <span id="lastname" style="color:blue; font-weight:500"> </span>
         </div>
+      </div>
+    </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $users->email ?? '') }}">
-            @if ($errors->has('email'))
-                    <li style="color:red">{{ $errors->first('email') }}</li>
-            @endif
-            <span id="emailids" style="color:blue; font-weight:500"> </span>
+    <div class="row">
+        <div class="col-sm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $users->email ?? '') }}">
+                @if ($errors->has('email'))
+                        <li style="color:red">{{ $errors->first('email') }}</li>
+                @endif
+                <span id="emailids" style="color:blue; font-weight:500"> </span>
+            </div>
         </div>
+    </div>
 
-    @if (!isset($users))
-        <div class="mb-3" >
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
-            @if ($errors->has('password'))
-                <li style="color:red">{{ $errors->first('password') }}</li>
-            @endif
-        </div>
-        <span id="password12" style="color:blue; font-weight:500"></span>
-
-        <div class="mb-3">
-            <label for="confirm_password" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="confirm_password" value="{{ old('confirm_password') }}" name="confirm_password">
-            @if ($errors->has('confirm_password'))
-                    <li style="color:red">{{ $errors->first('confirm_password') }}</li>
-            @endif
-            <span id="confrmpass" style="color:blue; font-weight:500"> </span>
-        </div>
-    @endif
-
-        <div class="mb-3">
-            <label for="dob" class="form-label">Dob</label>
-            {{-- <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="{{ isset($yearDifference) ?? Date('d-m-Y') }}" name="dob"> --}}
-            <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="" name="dob">
-            @if ($errors->has('dob'))
-                <li style="color:red">{{ $errors->first('dob') }}</li>
-            @endif
-            <span id="birthdate" style="color:blue; font-weight:500"> </span>
-        </div>
-
-
-        <div class="mb-3">
-            <label for="gender" class="form-label">Gender: </label>
-            <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male
-            <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female' || old('gender') == 'Female') checked @endif> Female
-            @if ($errors->has('gender'))
-                <li style="color:red">{{ $errors->first('gender') }}</li>
-            @endif
-        </div>
-
-
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $users->phone ?? '') }}">
-            @if ($errors->has('phone'))
-                <li style="color:red">{{ $errors->first('phone') }}</li>
-            @endif
-            <span id="phonenumber" style="color:blue; font-weight:500"> </span>
-        </div>
-
-    <div class="mb-3">
-        <label for="selectImage" class="form-label">Profile_pic</label>
-        <input type="file" value="{{ old('profile_pic') }} ||" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
-       @if(isset($users->profile_pic))
-            <img src="{{asset('uploads/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
+    <div class="row">
+        @if (!isset($users))
+            <div class="col-sm">
+                <div class="mb-3" >
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
+                    @if ($errors->has('password'))
+                        <li style="color:red">{{ $errors->first('password') }}</li>
+                    @endif
+                </div>
+                <span id="password12" style="color:blue; font-weight:500"></span>
+            </div>
+            <div class="col-sm">
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" value="{{ old('confirm_password') }}" name="confirm_password">
+                    @if ($errors->has('confirm_password'))
+                            <li style="color:red">{{ $errors->first('confirm_password') }}</li>
+                    @endif
+                    <span id="confrmpass" style="color:blue; font-weight:500"> </span>
+                </div>
+            </div>
         @endif
-        @if ($errors->has('profile_pic'))
-            <li style="color:red">{{ $errors->first('profile_pic') }}</li>
-        @endif
+    </div>
 
-        <img id="preview" width="100" height="100" src="#" alt="your image" class="mt-3" style="display:none;"/>
-        <span id="profile_image" style="color:blue; font-weight:500"> </span>
+    <div class="row">
+        <div class="col-sm">
+            <div class="mb-3">
+                <label for="dob" class="form-label">Dob</label>
+                {{-- <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="{{ isset($yearDifference) ?? Date('d-m-Y') }}" name="dob"> --}}
+                <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="" name="dob">
+                @if ($errors->has('dob'))
+                    <li style="color:red">{{ $errors->first('dob') }}</li>
+                @endif
+                <span id="birthdate" style="color:blue; font-weight:500"></span>
+            </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-sm">
+            <div class="mb-3" style="margin-top:30px">
+                <label for="gender" class="form-label">Gender: </label>
+                <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male
+                <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female' || old('gender') == 'Female') checked @endif> Female
+                @if ($errors->has('gender'))
+                    <li style="color:red">{{ $errors->first('gender') }}</li>
+                @endif
+                <span id="radio" style="color:blue; font-weight:500"></span>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $users->phone ?? '') }}">
+                @if ($errors->has('phone'))
+                    <li style="color:red">{{ $errors->first('phone') }}</li>
+                @endif
+                <span id="phonenumber" style="color:blue; font-weight:500"> </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="mb-3">
+                <label for="selectImage" class="form-label">Profile_pic</label>
+                <input type="file" value="{{ old('profile_pic') }} ||" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
+               @if(isset($users->profile_pic))
+                    <img src="{{asset('uploads/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
+                @endif
+                @if ($errors->has('profile_pic'))
+                    <li style="color:red">{{ $errors->first('profile_pic') }}</li>
+                @endif
+
+                <img id="preview" width="100" height="100" src="#" alt="your image" class="mt-3" style="display:none;"/>
+                <span id="profile_image" style="color:blue; font-weight:500"> </span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="mb-3" style="margin-top:30px">
+                @if(isset($users))
+                    <button type="submit" class="btn btn-primary" name="submit" value="submit" >Update</button>
+                    <a class="btn btn-primary" href="{{ url('users/dashboard') }}">Back</a>
+                @else
+                    <button type="submit" class="btn btn-primary" name="submit" value="submit">Submit</button>
+                    <a class="btn btn-primary" href="{{ url('/') }}">login</a>
+                @endif
+            </div>
+        </div>
     </div>
 
 
-    @if(isset($users))
-        <button type="submit" class="btn btn-primary" name="submit" value="submit" id="btn">Update</button>
-        <a class="btn btn-primary " href="{{ url('users/dashboard') }}">Back</a>
-    @else
-        <button type="submit" class="btn btn-primary" name="submit" value="submit" id="btn">Submit</button>
-        <a class="btn btn-primary " href="{{ url('/') }}">login</a>
-    @endif
     </form>
 </div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script>
+
+{{-- <script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script>
-
-    {{-- <script>
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('dob').setAttribute('max', today);
-    </script> --}}
+</script> --}}
 
     <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dob').setAttribute('max', today);
+    </script>
 
+    <script>
         selectImage.onchange = evt => {
             preview = document.getElementById('preview');
             preview.style.display = 'block';
@@ -179,93 +209,52 @@
                 return false;
             }
 // Lastname validation
-
-            if(last_name == ""){
-				document.getElementById('lastname').innerHTML =" ** Please fill the Last name field";
-				return false;
-			}else if((last_name.length <= 2) || (last_name.length > 20)) {
-				document.getElementById('lastname').innerHTML =" *Lastname lenght must be between  2 and 20* ";
-				return false;
-			}
-            else{
-                document.getElementById('lastname').innerHTML ="";
-
+            const errorMessage1 = (
+                last_name == "" ? "** Please fill the Last name field" :
+                last_name.length <= 2 || last_name.length > 20 ? "*Lastname length must be between 2 and 20*" :
+                    !isNaN(last_name) ? "** only characters are allowed" :
+                    ""
+            );
+            document.getElementById('lastname').innerHTML = errorMessage1;
+            if(errorMessage1 != ""){
+                return false;
             }
-
 // Email validation
-
-            if(emails == ""){
-				document.getElementById('emailids').innerHTML =" ** Please fill the email idx` field";
-				return false;
-			}
-			else if(emails.indexOf('@') <= 0 ){
-				document.getElementById('emailids').innerHTML =" ** @ Invalid Position";
-				return false;
-			}
-
-			else if((emails.charAt(emails.length-4)!='.') && (emails.charAt(emails.length-3)!='.')){
-				document.getElementById('emailids').innerHTML =" ** . Invalid Position";
-				return false;
-			}
-            else{
-                document.getElementById('emailids').innerHTML ="";
+            const errorMessage2 = (
+                emails == "" ? "** Please fill the email" :
+                emails.charAt(emails.length-4)!='.' && emails.charAt(emails.length-3)!='.' ? "*Invalid Position*" :
+                    ""
+            );
+            document.getElementById('emailids').innerHTML = errorMessage2;
+            if(errorMessage2 != ""){
+                return false;
             }
 
 // Password validation
-
-            if(pass == ""){
-				document.getElementById('password12').innerHTML =" ** Please fill the password field";
-				return false;
-			}
-            else if (!isContainsUppercase.test(pass)) {
-                document.getElementById('password12').innerHTML =" ** Password must have at least one Uppercase Character.";
+            const errorMessage3 = (
+                pass == "" ? "** Please fill the password field" :
+                pass.length<8 ? "** Passwords length must be 8 Characters" :
+                !isContainsUppercase.test(pass) ? "** one Uppercase are allowed" :
+                !isContainsLowercase.test(pass) ? "** one Lowercase are allowed" :
+                !isContainsNumber.test(pass) ? "** one Numbers are allowed" :
+                !isContainsSymbol.test(pass) ? "** one Symbols are allowed" :
+                !isNonWhiteSpace.test(pass) ? "** Whitespaces are not allowed" :
+                ""
+            );
+            document.getElementById('password12').innerHTML = errorMessage3;
+            if(errorMessage3 != ""){
                 return false;
             }
-            else if (!isContainsLowercase.test(pass)) {
-                document.getElementById('password12').innerHTML =" ** Password must have at least one Lowercase Character.";
-                return false;
-            }
-            else if (!isContainsNumber.test(pass)) {
-                document.getElementById('password12').innerHTML =" ** Password must contain at least one Digit.";
-                return false;
-            }
-            else if (!isContainsSymbol.test(pass)) {
-                document.getElementById('password12').innerHTML =" ** Password must contain at least one Special Symbol";
-				return false;
-            }
-            else if (!isNonWhiteSpace.test(pass)) {
-                document.getElementById('password12').innerHTML =" ** Password must not contain Whitespaces";
-				return false;
-            }
-            else if(pass.length<8) {
-				document.getElementById('password12').innerHTML =" ** Passwords length must be 8 Characters";
-				return false;
-			}
-            else{
-                document.getElementById('password12').innerHTML ="";
-            }
-
-
-
-
-
-
 // Confirm password validation
-
-            if(pass!=confirmpass){
-				document.getElementById('confrmpass').innerHTML =" ** Password does not match the confirm password";
-				return false;
-			}
-			else if(confirmpass == ""){
-				document.getElementById('confrmpass').innerHTML =" ** Please fill the confirmpassword field";
-				return false;
-			}
-            else if(confirmpass.length<8) {
-				document.getElementById('confrmpass').innerHTML =" ** Confirm Passwords length must be 8 Characters";
-				return false;
-			}
-            else{
-                document.getElementById('confrmpass').innerHTML ="";
+            const errorMessage4 = (
+                confirmpass == "" ? "** Please fill the confirmpass field" :
+                pass !=confirmpass ? "** Password does not match the confirm password" :
+                confirmpass.length<8 ? "** confirmpass length must be 8 Characters" :
+                ""
+            );
+            document.getElementById('confrmpass').innerHTML = errorMessage4;
+            if(errorMessage4 != ""){
+                return false;
             }
 
 //Date of birth validation
@@ -273,44 +262,44 @@
             document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
-        underAgeValidate(birthdate)
-        // document.getElementById('birthdate').innerHTML =" ** The date difference is less than -18 years";
-        // return false
+        // underAgeValidate(birthdate);
 
-
-
-//Gender validation
-        for(var i=0; i<gender.length;i++){
-            if(gender[i].checked == true){
-                genValue = true;
-            }
+        var dobInput = document.getElementById("dob");
+        var selectedDate = new Date(dobInput.value);
+        var today = new Date();
+        var age = today.getFullYear() - selectedDate.getFullYear();
+        if (
+            today.getMonth() < selectedDate.getMonth() ||
+            (today.getMonth() === selectedDate.getMonth() && today.getDate() < selectedDate.getDate())
+        ) {
+            age--;
         }
-        if(!genValue){
-            document.getElementById('radio').innerHTML =" ** Please select the gender";
+        if (age < 18) {
+            document.getElementById('birthdate').innerHTML = "** The date difference is less than -18 years";
             return false;
         }
         else{
-            document.getElementById('radio').innerHTML ="";
+            document.getElementById('birthdate').innerHTML ="";
         }
 
-
-
+//Gender validation
+        if (!document.querySelector('input[name="gender"]:checked')) {
+                document.getElementById('radio').innerHTML = " ** Please select the gender";
+        return false;
+        }
+        else{
+            document.getElementById('radio').innerHTML = "";
+        }
 //Phone validation
-
-            if(phone == ""){
-				document.getElementById('phonenumber').innerHTML =" ** Please add the Phone number";
-				return false;
-			}
-            else if(isNaN(phone)){
-				document.getElementById('phonenumber').innerHTML =" ** user must write digits only not characters";
-				return false;
-			}
-            else if(phone.length!=10){
-				document.getElementById('phonenumber').innerHTML =" ** Mobile Number must be 10 digits only";
-				return false;
-			}
-            else{
-                document.getElementById('phonenumber').innerHTML ="";
+            const errorMessage5 = (
+                phone == "" ? "** Please add the Phone number" :
+                isNaN(phone) ? "**  user must write digits only not characters" :
+                phone.length!=10 ? "** Mobile Number must be 10 digits only" :
+                ""
+            );
+            document.getElementById('phonenumber').innerHTML = errorMessage5;
+            if(errorMessage5 != ""){
+                return false;
             }
 
 // Profile pic
@@ -319,49 +308,16 @@
 				document.getElementById('profile_image').innerHTML =" ** Please select image";
 				return false;
 			}
-            var fileName = document.getElementById("selectImage").value,
-                idxDot = fileName.lastIndexOf(".") + 1,
-                extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-            if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
-            }else{
-                // alert("Only jpg/jpeg and png files are allowed!");
-                document.getElementById('profile_image').innerHTML =" ** Only jpg/jpeg and png files are allowed";
+            var fileInput = document.getElementById("selectImage");
+            var fileName = fileInput.value;
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedExtensions.exec(fileName)) {
+                document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed";
                 return false;
             }
 
     }
-// date of birth validation
 
-    function underAgeValidate(birthday) {
-        const date = new Date();
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-        let currentDate = `${day}-${month}-${year}`;
-
-        const newBirthdate = new Date(birthday);
-        let birday = newBirthdate.getDate();
-        let birmonth = newBirthdate.getMonth() + 1;
-        let biryear = newBirthdate.getFullYear();
-        let changeBirthDate = `${birday}-${birmonth}-${biryear}`;
-
-        var date1Components = currentDate.split('-');
-        var date2Components = changeBirthDate.split('-');
-        var date1Object = new Date(date1Components[2], date1Components[1] - 1, date1Components[0]);
-        var date2Object = new Date(date2Components[2], date2Components[1] - 1, date2Components[0]);
-        var timeDifference = date1Object.getTime() - date2Object.getTime();
-        var yearDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
-        dd(yearDifference);
-
-       if(yearDifference <= 18){
-            document.getElementById('birthdate').innerHTML =" ** The date difference is less than -18 years";
-            document.getElementById('birthdate').innerHTML = $yearDifference;
-            return false;
-        }
-        else{
-            document.getElementById('birthdate').innerHTML ="";
-        }
-    }
 
     </script>
 </html>

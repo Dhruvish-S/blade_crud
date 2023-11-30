@@ -52,11 +52,12 @@ class UserController extends Controller
         $email_data = array(
             'id' => $query->id,
             'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
         );
 
         Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
-            $message->to($email_data['email'], $email_data['first_name'])
+            $message->to($email_data['email'], $email_data['first_name'], $email_data['last_name'])
                 ->subject('Welcome to Register User')
                 ->from('dhruvishpatoliya638@gmail.com', 'RegisterUser');
         });

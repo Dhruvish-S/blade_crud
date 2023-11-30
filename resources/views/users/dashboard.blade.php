@@ -46,8 +46,10 @@
     </style>
 
     <div class="container">
-        <a class="btn btn-primary addUser" style="float: right; margin-right: 10px;margin-top:10px;margin-bottom:30px;"
+        <a class="btn btn-primary addUser" style="float: right; margin-right: 91px;margin-top:10px;margin-bottom:30px;"
             href="{{ url('register') }}">Add User</a>
+
+            <a class="btn btn-primary" style="float: right; margin-top:10px;margin-right:-182px; " href="{{ url('logout') }}">LogOut</a>
 
         <table id="example" class="display table-responsive" style="width:100%">
             <thead>

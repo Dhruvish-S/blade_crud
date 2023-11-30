@@ -11,17 +11,9 @@ Route::middleware('guest')->group(function () {
     Route::get('verify/{id}',['App\Http\Controllers\LoginController','verify'])->name('verify');
 });
 
-
-
-
 Route::get('/register',['App\Http\Controllers\UserController','create'])->name('register');
 Route::post('users/store',['App\Http\Controllers\UserController','store'])->name('users/store');
-
-
 Route::get('logout',['App\Http\Controllers\LogoutController','perform']);
-
-
-
 Route::middleware(['auth','verified'])->group(function () {
 
     // Route::get('/users',['App\Http\Controllers\UserController','index'])->name('users');

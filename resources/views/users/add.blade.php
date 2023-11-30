@@ -8,7 +8,7 @@
     }
 }
 </style>
-<div class="container" style="border:2px solid black">
+<div class="container" style="outline : none;border:2px solid black; border-radius:5px;">
     <h2 style="margin:30px">@if (isset($users)) Edit @else Add @endif User</h2>
     @if (isset($users))
         <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">

@@ -21,7 +21,7 @@
     <div id="app">
 @if(isset($users))
     <div class="text" style="margin-left: 40px">
-        <h3 style="padding:10px">Welecome to  the dashboard : {{ Auth::user()->first_name }}</h3>
+        <h3 style="padding:10px">Welecome to  the dashboard : {{ Auth::user()->first_name  }}</h3>
         <a class="btn btn-primary" style="float: right; margin-top:-52px;margin-right:16px; " href="{{ url('logout') }}">LogOut</a>
         <hr>
     </div>

@@ -1,12 +1,15 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-   <h1>Hello {{ $first_name }},<br><br></h1>
+    <div class="d-flex justify-content-center align-items-center  w-100" style="height:800px;">
+        <div class="bg-light box" class="bg-secondary" style="width: 500px; height: 500px;  box-shadow: 10px 10px;">
+        <h4 style="text-align: center;padding: 20px;color: blue; font-size: 30px;font-weight:800">Laravel Crud</h4>
+            <p style="text-align: center;font-weight:800;font-size:22px;color:blue">Welcome to the User Registration form</p>
+                <p style="text-align: center;font-weight:800;font-size:22px;color:blue">{{ $first_name }}</p><br><br>
+        <a href="{{ url('verify/' . $id) }}" style="font-weight:800;font-size:16px;color:white;background-color:black;padding:10px;border-radius:5px; margin-left:35%">Verify Email{{ $id }}</a>
+        </div>
+    </div>
 </body>
 </html>

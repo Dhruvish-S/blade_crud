@@ -7,6 +7,8 @@ use App\Services\UserServices;
 use Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+
+use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Mail;
 
@@ -44,27 +46,23 @@ class UserController extends Controller
             'profile_pic' => $fileName,
         );
 
+        $userServices = new UserServices();
+        $query = $userServices->add($inputArray);
+
         $email_data = array(
+            'id' => $query->id,
             'first_name' => $request->first_name,
             'email' => $request->email,
         );
 
         Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
             $message->to($email_data['email'], $email_data['first_name'])
-                ->subject('Welcome to MyNotePaper')
-                ->from('dhruvishpatoliya638@gmail.com', 'MyNotePaper');
+                ->subject('Welcome to Register User')
+                ->from('dhruvishpatoliya638@gmail.com', 'RegisterUser');
         });
+        Auth::logout();
+            return redirect('/');
 
-        $userServices = new UserServices();
-        $query = $userServices->add($inputArray);
-
-
-
-        if($query) {
-            return redirect('users/dashboard')->with('success', 'User added successfully.');
-        } else {
-            return redirect('users/dashboard')->with('error', 'Something went wrong.');
-        }
     }
     public function index(Request $request)
     {

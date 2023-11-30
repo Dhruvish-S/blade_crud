@@ -7,6 +7,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Auth\Events\Verified;
+use Carbon\Carbon;
+use App\Services\UserServices;
+use Illuminate\Support\Facades\Session;
 
 
 class LoginController extends Controller
@@ -38,5 +43,32 @@ class LoginController extends Controller
     }
     public function dashboard(){
         return view('users/dashboard');
+    }
+
+    public function verify(Request $request,$id){
+            event(new Verified($request->user()));
+            $time             = Carbon::now();
+            $timeStamp        = $time->toDateTimeString();
+            $inputArray = array(
+                'email_verified_at' => $timeStamp,
+            );
+            // dd($inputArray);
+            if($inputArray ){
+                $userServices = new UserServices();
+                $query = $userServices->update($id,$inputArray);
+                if($query){
+                    // dd($query);
+                    return redirect('/');
+                }else{
+                    dd();
+                    return redirect('/');
+                }
+            }else{
+                dd();
+                return redirect('/');
+            }
+
+
+
     }
 }

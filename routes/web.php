@@ -4,20 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
+
 Route::middleware('guest')->group(function () {
     Route::get('/',['App\Http\Controllers\LoginController','login'])->name('/');
     Route::post('login',['App\Http\Controllers\LoginController','authenticate'])->name('login');
+    Route::get('verify/{id}',['App\Http\Controllers\LoginController','verify'])->name('verify');
 });
-
-
 
 Route::get('/register',['App\Http\Controllers\UserController','create'])->name('register');
 Route::post('users/store',['App\Http\Controllers\UserController','store'])->name('users/store');
-;
-
 Route::get('logout',['App\Http\Controllers\LogoutController','perform']);
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
 
     // Route::get('/users',['App\Http\Controllers\UserController','index'])->name('users');
     Route::get('users/dashboard',['App\Http\Controllers\UserController','index'])->name('users/dashboard');

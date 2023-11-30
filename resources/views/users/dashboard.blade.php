@@ -5,15 +5,25 @@
 
 @section('content')
     <style>
+
         @media only screen and (min-width: 600px) {
-            .container {
-                margin-left: 30px !important;
+            .container .table-responsive {
+                padding: 20px;
+                margin-left:-50px;
+            }
+            .table-responsive table {
+                width: 100%;
+                max-width: 100%;
+
+            }
+            table.dataTable{
+                padding: 40px;
+                margin-left:-50px;
+            }
+            .addUser{
+                float: right;
             }
 
-            .btn {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
         }
 
         .container {
@@ -29,11 +39,17 @@
             max-width: 100%;
 
         }
+         table.dataTable{
+                padding: 0px;
+                margin-left:0px;
+            }
     </style>
 
     <div class="container">
-        <a class="btn btn-primary" style="float: right; margin-right: 10px;margin-top:10px;margin-bottom:30px;"
+        <a class="btn btn-primary addUser" style="float: right; margin-right: 91px;margin-top:10px;margin-bottom:30px;"
             href="{{ url('register') }}">Add User</a>
+
+            <a class="btn btn-primary" style="float: right; margin-top:10px;margin-right:-182px; " href="{{ url('logout') }}">LogOut</a>
 
         <table id="example" class="display table-responsive" style="width:100%">
             <thead>
@@ -73,10 +89,6 @@
         </table>
     </div>
 
-
-
-    {{-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
         $(document).ready(function() {

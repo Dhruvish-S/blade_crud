@@ -1,8 +1,14 @@
 @extends('layout.app')
 @section('title') User Register | Edit @endsection
 @section('content')
-
-<div class="container" style="border:2px solid black">
+<style>
+@media only screen and (min-width: 600px) {
+    .container {
+        max-width: 900px;
+    }
+}
+</style>
+<div class="container" style="outline : none;border:2px solid black; border-radius:5px;">
     <h2 style="margin:30px">@if (isset($users)) Edit @else Add @endif User</h2>
     @if (isset($users))
         <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">
@@ -150,17 +156,17 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-{{-- <script>
+<script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script> --}}
-
+</script>
+{{--
     <script>
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('dob').setAttribute('max', today);
-    </script>
+    </script> --}}
 
     <script>
         selectImage.onchange = evt => {

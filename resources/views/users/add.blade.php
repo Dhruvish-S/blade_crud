@@ -58,7 +58,7 @@
             <div class="col-sm">
                 <div class="mb-3" >
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
+                    <input type="password"  class="form-control" id="password" name="password" value="{{ old('password') }}">
                     @if ($errors->has('password'))
                         <li style="color:red">{{ $errors->first('password') }}</li>
                     @endif

@@ -103,24 +103,24 @@ function validateForm12()
             document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
+        const dobInput = document.getElementById('dob');
+        const dob = new Date(dobInput.value);
+        const today = new Date();
+        const age = today.getFullYear() - dob.getFullYear();
+        if (age < 18) {
+            document.getElementById('birthdate').innerHTML = "** The date difference is less than -18 years";
+            return false;
+        } else {
+            document.getElementById('birthdate').innerHTML ="";
+        }
 
-        var dobInput = document.getElementById("dob");
-        var selectedDate = new Date(dobInput.value);
-        var today = new Date();
-        var age = today.getFullYear() - selectedDate.getFullYear();
-            if (
-                today.getMonth() < selectedDate.getMonth() ||
-                (today.getMonth() === selectedDate.getMonth() && today.getDate() < selectedDate.getDate())
-            ) {
-                age--;
-            }
-            if (age < 18) {
-                document.getElementById('birthdate').innerHTML = "** The date difference is less than -18 years";
-                return false;
-            }
-            else{
-                document.getElementById('birthdate').innerHTML ="";
-            }
+
+        const dob = document.getElementById('dob'); // Replace with the actual date of birth from your form
+        const isUser18OrOlder = (new Date().getFullYear() - new Date(dob).getFullYear()) < 18;
+        const validationMessage = isUser18OrOlder ? 'User is not 18 yet' : ' User is 18 or older';
+        console.log(validationMessage);
+
+
 
     //Gender validation
         if (!document.querySelector('input[name="gender"]:checked')) {

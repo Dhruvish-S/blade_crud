@@ -156,12 +156,12 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-<script>
+{{-- <script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script>
+</script> --}}
 {{--
     <script>
         const today = new Date().toISOString().split('T')[0];

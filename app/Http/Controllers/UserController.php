@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Mail;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage as FacadesStorage;
+use Storage;
 
 class UserController extends Controller
 {
@@ -19,8 +22,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|alpha',
-            'last_name' => 'required|alpha',
+            'first_name' => 'required|alpha|min:2|max:20',
+            'last_name' => 'required|alpha|min:2|max:20',
             'email' => 'email:rfc,dns|required|unique:users,email|email',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password|min:8',
@@ -30,8 +33,8 @@ class UserController extends Controller
             'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $fileName = time().'.'.$request->profile_pic->extension();
-        $request->profile_pic->move(public_path('uploads'), $fileName);
+$fileName = time() . '.' . $request->profile_pic->extension();
+$request->profile_pic->storeAs('public/uploads',$fileName);
 
         $inputArray = array(
             'first_name' => $request->first_name,
@@ -57,29 +60,25 @@ class UserController extends Controller
         Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
             $message->to($email_data['email'], $email_data['first_name'], $email_data['last_name'])
                 ->subject('Welcome to Register User')
-                ->from('dhruvishpatoliya638@gmail.com', 'RegisterUser');
+                ->from('dsorathiya@patoliyainfotech.com', 'RegisterUser');
         });
         Auth::logout();
-            return redirect('/');
+        return redirect('/');
 
     }
     public function index(Request $request)
     {
         $userServices = new UserServices();
-        // $query = $userServices->get();
-        // return view('users/dashboard',['users' => $query]);
-        // // return view('users/index',['users' => $query]);
-
         if ($request->ajax()) {
             $data = $userServices->get();
             return Datatables::of($data)->addIndexColumn()
-            ->addColumn('profile_pic', function($row){
-                $data = asset('uploads/'.$row->profile_pic);
-                return $data;
-            })
-                ->addColumn('action', function($row){
+                ->addColumn('profile_pic', function ($row) {
+                    $data = asset('storage/uploads/' . $row->profile_pic);
+                    return $data;
+                })
+                ->addColumn('action', function ($row) {
                     $btn = '<a class="btn btn-success btn" href=' . url('users/edit', $row->id) . '>Edit</a>
-                    <button href="javascript:void(0);" class="btn btn-danger delete" id="delete" data-id='. $row->id .'>Delete</button>';
+                    <button href="javascript:void(0);" class="btn btn-danger delete" id="delete" data-id=' . $row->id . '>Delete</button>';
 
                     return $btn;
                 })
@@ -93,7 +92,7 @@ class UserController extends Controller
     {
         $userServices = new UserServices();
         $query = $userServices->delete($id);
-        if($query == 1) {
+        if ($query == 1) {
             return redirect('/users/dashboard')->with('success', 'User deleted successfully.');
         } else {
             return redirect('/users/dashboard')->with('error', 'Something went wrong.');
@@ -104,34 +103,28 @@ class UserController extends Controller
         $userServices = new UserServices();
         $query = $userServices->getById($id);
 
-        return view('users/add',['users' => $query[0]]);
+        return view('users/add', ['users' => $query[0]]);
     }
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => 'required|alpha',
-            'last_name' => 'required|alpha',
-            'email' => 'required',
-            'dob' => 'required',
+            'first_name' => 'required|alpha|min:2|max:20',
+            'last_name' => 'required|alpha|min:2|max:20',
+            'email' => 'email:rfc,dns|required|email',
+            'dob' => 'required|date|before:-18 years',
             'gender' => 'required',
-            'phone' => 'required|integer',
-            'profile_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'phone' => 'required|integer|digits:10',
+            'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $userServices = new UserServices();
         $singleUserRecord = $userServices->getById($id);
 
-        if($request->file('profile_pic'))
-        {
-            // echo 'if';
-            // $fileName = time().'.'.$request->file('profile_pic')->extension();
-            // $request->file('profile_pic')->move(public_path('uploads'), $fileName);
-
-            if(File::exists(public_path('uploads/').$singleUserRecord[0]->profile_pic)) {
-                File::delete(public_path('uploads/').$singleUserRecord[0]->profile_pic);
+        if ($request->file('profile_pic')) {
+            if (File::exists(public_path('uploads/') . $singleUserRecord[0]->profile_pic)) {
+                File::delete(public_path('uploads/') . $singleUserRecord[0]->profile_pic);
             }
-
-            $fileName = time().'.'.$request->profile_pic->extension();
-            $request->profile_pic->move(public_path('uploads'), $fileName);
+            $fileName = time() . '.' . $request->profile_pic->extension();
+            $request->profile_pic->storeAs('public/uploads',$fileName);
 
         }
 
@@ -144,13 +137,13 @@ class UserController extends Controller
             'phone' => $request->phone,
         );
 
-        if($request->file('profile_pic')){
+        if ($request->file('profile_pic')) {
             $inputArray['profile_pic'] = $fileName;
         }
 
-        $query = $userServices->update($id,$inputArray);
+        $query = $userServices->update($id, $inputArray);
 
-        if($query) {
+        if ($query) {
             return redirect('/users/dashboard')->with('success', 'User updated successfully.');
         } else {
             return redirect('/users/dashboard')->with('error', 'Something went wrong.');
@@ -158,9 +151,31 @@ class UserController extends Controller
 
     }
 
-    public function changepassword()
+    public function changePassword(Request $request, $id)
     {
-        return view('users/add');
+        $id = $request->id;
+        return view('users/changepassword', ['id' => $id]);
+    }
+    public function changePasswordSave(Request $request, $id)
+    {
+        $user = User::find($id);
+        $request->validate([
+            'current_password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ]);
+        $currentPasswordStatus = Hash::check($request->current_password, $user->password);
+
+        if ($currentPasswordStatus) {
+
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+            return redirect()->back()->with('message', 'Password Updated Successfully');
+
+        } else {
+
+            return redirect()->back()->with('message', 'Current Password does not match with Old Password');
+        }
     }
 
 }

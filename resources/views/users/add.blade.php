@@ -122,7 +122,7 @@
                 <label for="selectImage" class="form-label">Profile_pic</label>
                 <input type="file" value="{{ old('profile_pic') }} ||" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
                @if(isset($users->profile_pic))
-                    <img src="{{asset('uploads/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
+                    <img src="{{asset('storage/uploads/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
                 @endif
                 @if ($errors->has('profile_pic'))
                     <li style="color:red">{{ $errors->first('profile_pic') }}</li>
@@ -141,6 +141,7 @@
                 @if(isset($users))
                     <button type="submit" class="btn btn-primary" name="submit" value="submit" >Update</button>
                     <a class="btn btn-primary" href="{{ url('users/dashboard') }}">Back</a>
+                    <a class="btn btn-primary" href="{{ url('change-password/'.$users->id) }}">Change Password</a>
                 @else
                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Submit</button>
                     <a class="btn btn-primary" href="{{ url('/') }}">login</a>

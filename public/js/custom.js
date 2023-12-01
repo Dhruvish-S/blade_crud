@@ -5,24 +5,24 @@ function validateForm()
         var pass = document.getElementById('password').value;
         var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-        const errorMessage1 = (
+        const emailMessage = (
                 emails == "" ? "** Please fill the email" :
                 emails.charAt(emails.length-4)!='.' && emails.charAt(emails.length-3)!='.' ? "*Invalid Position*" :
                     ""
         );
-        document.getElementById('emailids').innerHTML = errorMessage1;
-            if(errorMessage1 != ""){
+        document.getElementById('emailids').innerHTML = emailMessage;
+            if(emailMessage != ""){
                 return false;
             }
 
-        const errorMessage2 = (
+        const passwordMessage = (
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
             !regularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
             ""
         )
-            document.getElementById('password12').innerHTML = errorMessage2;
-        if(errorMessage2 != ""){
+            document.getElementById('password12').innerHTML = passwordMessage;
+        if(passwordMessage != ""){
             return false;
         }
 }
@@ -36,71 +36,69 @@ function validateForm12()
     var pass = document.getElementById('password').value;
     var confirmpass = document.getElementById('confirm_password').value;
     var birthdate = document.getElementById('dob').value;
-    var gender = document.getElementsByName('gender');
     var phone = document.getElementById('phone').value;
     var profile_pi = document.getElementById('selectImage').value;
-    var genValue = false;
     var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-// First name validation
-        const errorMessage = (
+    // First name validation
+        const firstnameMessage = (
             first_name == "" ? "** Please fill the First name field" :
             first_name.length <= 2 || first_name.length > 20 ? "*Firstname length must be between 2 and 20*" :
             !isNaN(first_name) ? "** only characters are allowed" :
             ""
         );
-        document.getElementById('firstname').innerHTML = errorMessage;
-        if(errorMessage != ""){
+        document.getElementById('firstname').innerHTML = firstnameMessage;
+        if(firstnameMessage != ""){
             return false;
         }
 
-// Last name validation
-        const errorMessage1 = (
+    // Last name validation
+        const lastnameMessage = (
             last_name == "" ? "** Please fill the Last name field" :
             last_name.length <= 2 || last_name.length > 20 ? "*Lastname length must be between 2 and 20*" :
                 !isNaN(last_name) ? "** only characters are allowed" :
                 ""
         );
-        document.getElementById('lastname').innerHTML = errorMessage1;
-        if(errorMessage1 != ""){
+        document.getElementById('lastname').innerHTML = lastnameMessage;
+        if(lastnameMessage != ""){
             return false;
         }
 
-// Email validation
-        const errorMessage2 = (
+    // Email validation
+        const emailMessage = (
             emails == "" ? "** Please fill the email" :
             emails.charAt(emails.length-4)!='.' && emails.charAt(emails.length-3)!='.' ? "*Invalid Position*" :
             ""
         );
-        document.getElementById('emailids').innerHTML = errorMessage2;
-        if(errorMessage2 != ""){
+        document.getElementById('emailids').innerHTML = emailMessage;
+        if(emailMessage != ""){
             return false;
         }
 
-// Password validation
-        const errorMessage3 = (
+    // Password validation
+        const passwordMessage = (
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
             !regularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
             ""
         )
-        document.getElementById('password12').innerHTML = errorMessage3;
-        if(errorMessage3 != ""){
+        document.getElementById('password12').innerHTML = passwordMessage;
+        if(passwordMessage != ""){
             return false;
         }
 
-// Confirm password validation
-        const errorMessage4 = (
+    // Confirm password validation
+        const confirmMessage = (
             confirmpass == "" ? "** Please fill the confirmpass field" :
             pass !=confirmpass ? "** Password does not match the confirm password" :
             ""
         );
-        document.getElementById('confrmpass').innerHTML = errorMessage4;
-        if(errorMessage4 != ""){
+        document.getElementById('confrmpass').innerHTML = confirmMessage;
+        if(confirmMessage != ""){
             return false;
         }
 
-//Date of birth validation
+    //Date of birth validation
         if(birthdate == ""){
             document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
             return false;
@@ -124,7 +122,7 @@ function validateForm12()
                 document.getElementById('birthdate').innerHTML ="";
             }
 
-//Gender validation
+    //Gender validation
         if (!document.querySelector('input[name="gender"]:checked')) {
             document.getElementById('radio').innerHTML = " ** Please select the gender";
             return false;
@@ -133,19 +131,19 @@ function validateForm12()
             document.getElementById('radio').innerHTML = "";
         }
 
-//Phone validation
-        const errorMessage5 = (
+    //Phone validation
+        const phoneMessage = (
             phone == "" ? "** Please add the Phone number" :
             isNaN(phone) ? "**  user must write digits only not characters" :
             phone.length!=10 ? "** Mobile Number must be 10 digits only" :
             ""
         );
-        document.getElementById('phonenumber').innerHTML = errorMessage5;
-        if(errorMessage5 != ""){
+        document.getElementById('phonenumber').innerHTML = phoneMessage;
+        if(phoneMessage != ""){
             return false;
         }
 
-// Profile pic
+    // Profile pic
 
         if(profile_pi == ""){
             document.getElementById('profile_image').innerHTML =" ** Please select image";

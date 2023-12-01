@@ -43,7 +43,6 @@ class LoginController extends Controller
         $inputArray = array(
             'email_verified_at' => $timeStamp,
         );
-        // dd($inputArray);
         if ($inputArray) {
             $userServices = new UserServices();
             $query = $userServices->update($id, $inputArray);

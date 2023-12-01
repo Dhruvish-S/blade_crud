@@ -3,16 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Auth\Events\Verified;
 use Carbon\Carbon;
 use App\Services\UserServices;
-use Illuminate\Support\Facades\Session;
-
 
 class LoginController extends Controller
 {
@@ -54,18 +48,12 @@ class LoginController extends Controller
             $userServices = new UserServices();
             $query = $userServices->update($id, $inputArray);
             if ($query) {
-                // dd($query);
                 return redirect('/');
             } else {
-                dd();
                 return redirect('/');
             }
         } else {
-            dd();
             return redirect('/');
         }
-
-
-
     }
 }

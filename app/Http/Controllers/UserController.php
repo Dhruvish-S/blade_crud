@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\UserServices;
-use Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
-
 use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Mail;
@@ -122,7 +120,6 @@ class UserController extends Controller
         $userServices = new UserServices();
         $singleUserRecord = $userServices->getById($id);
 
-
         if($request->file('profile_pic'))
         {
             // echo 'if';
@@ -159,6 +156,11 @@ class UserController extends Controller
             return redirect('/users/dashboard')->with('error', 'Something went wrong.');
         }
 
+    }
+
+    public function changepassword()
+    {
+        return view('users/add');
     }
 
 }

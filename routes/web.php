@@ -22,4 +22,10 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('users/edit/{id}',['App\Http\Controllers\UserController','edit']);
     Route::put('users/update/{id}',['App\Http\Controllers\UserController','update']);
     Route::get('/dashboard',['App\Http\Controllers\LoginController','dashboard'])->name('dashboard');
+
+
+    Route::get('change-password/{id}', [UserController::class, 'changePassword'])->name('changePassword');
+    Route::post('postChangePassword/{id}', [UserController::class, 'changePasswordSave'])->name('postChangePassword');
 });
+
+

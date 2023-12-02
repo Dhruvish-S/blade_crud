@@ -25,7 +25,7 @@ class UserController extends Controller
             'first_name' => 'required|alpha|min:2|max:20',
             'last_name' => 'required|alpha|min:2|max:20',
             'email' => 'email:rfc,dns|required|unique:users,email|email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'confirm_password' => 'required|same:password|min:8',
             'dob' => 'required|date|before:-18 years',
             'gender' => 'required',

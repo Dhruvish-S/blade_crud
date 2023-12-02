@@ -4,6 +4,7 @@ function validateForm()
         var emails = document.getElementById('email').value;
         var pass = document.getElementById('password').value;
         var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        var emailValid  = new RegExp("/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/");
 
         const emailMessage = (
                 emails == "" ? "** Please fill the email" :
@@ -113,12 +114,10 @@ function validateForm12()
         } else {
             document.getElementById('birthdate').innerHTML ="";
         }
-
-
-        const dob = document.getElementById('dob'); // Replace with the actual date of birth from your form
-        const isUser18OrOlder = (new Date().getFullYear() - new Date(dob).getFullYear()) < 18;
-        const validationMessage = isUser18OrOlder ? 'User is not 18 yet' : ' User is 18 or older';
-        console.log(validationMessage);
+        // const dob = document.getElementById('dob'); // Replace with the actual date of birth from your form
+        // const isUser18OrOlder = (new Date().getFullYear() - new Date(dob).getFullYear()) >= 18;
+        // const validationMessage = isUser18OrOlder ? 'User is 18 or older' : 'User is not 18 yet';
+        // console.log(validationMessage);
 
 
 

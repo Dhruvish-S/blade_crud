@@ -37,7 +37,7 @@ function validateForm12()
     var emails = document.getElementById('email').value;
     var pass = document.getElementById('password').value;
     var confirmpass = document.getElementById('confirm_password').value;
-    var birthdate = document.getElementById('dob').value;
+    var dobInput = document.getElementById('dob').value;
     var phone = document.getElementById('phone').value;
     var profile_pi = document.getElementById('selectImage').value;
     var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
@@ -104,11 +104,10 @@ function validateForm12()
         }
 
     //Date of birth validation
-        if(birthdate == ""){
+        if(dobInput == ""){
             document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
-        const dobInput = document.getElementById('dob');
         const dob = new Date(dobInput.value);
         const today = new Date();
         const age = today.getFullYear() - dob.getFullYear();
@@ -118,6 +117,7 @@ function validateForm12()
         } else {
             document.getElementById('birthdate').innerHTML ="";
         }
+
         // const dob = document.getElementById('dob'); // Replace with the actual date of birth from your form
         // const isUser18OrOlder = (new Date().getFullYear() - new Date(dob).getFullYear()) >= 18;
         // const validationMessage = isUser18OrOlder ? 'User is 18 or older' : 'User is not 18 yet';

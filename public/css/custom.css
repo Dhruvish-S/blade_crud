@@ -1,0 +1,30 @@
+
+.container{
+    border:2px solid black;
+    outline : none;
+    border-radius:5px;
+    padding:5px;
+}
+span{
+    color:blue;
+    font-weight:500;
+}
+
+.container h2{
+    margin:20px;
+}
+.addUsers{
+    float:right;
+}
+.addUserDashboard{
+    float: right;
+    margin-right: 91px;
+    margin-top:10px;
+    margin-bottom:30px;
+}
+
+.addLogoutDashboard{
+    float: right;
+    margin-top:10px;
+    margin-right:-182px;
+}

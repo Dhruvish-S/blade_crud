@@ -8,8 +8,8 @@
     }
 }
 </style>
-<div class="container" style="outline : none;border:2px solid black; border-radius:5px;">
-    <h2 style="margin:30px">@if (isset($users)) Edit @else Add @endif User</h2>
+<div class="container">
+    <h2>@if (isset($users)) Edit @else Add @endif User</h2>
     @if (isset($users))
         <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">
         @method('PUT')
@@ -25,7 +25,7 @@
               @if ($errors->has('first_name'))
                       <li style="color:red">{{ $errors->first('first_name') }}</li>
               @endif
-              <span id="firstname" style="color:blue; font-weight:500"> </span>
+              <span id="First_name"></span>
         </div>
       </div>
       <div class="col-sm">
@@ -35,7 +35,7 @@
             @if ($errors->has('last_name'))
                     <li style="color:red">{{ $errors->first('last_name') }}</li>
             @endif
-            <span id="lastname" style="color:blue; font-weight:500"> </span>
+            <span id="Last_name"> </span>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
                 @if ($errors->has('email'))
                         <li style="color:red">{{ $errors->first('email') }}</li>
                 @endif
-                <span id="emailids" style="color:blue; font-weight:500"> </span>
+                <span id="Email_ids"> </span>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
                         <li style="color:red">{{ $errors->first('password') }}</li>
                     @endif
                 </div>
-                <span id="password12" style="color:blue; font-weight:500"></span>
+                <span id="password12"></span>
             </div>
             <div class="col-sm">
                 <div class="mb-3">
@@ -72,7 +72,7 @@
                     @if ($errors->has('confirm_password'))
                             <li style="color:red">{{ $errors->first('confirm_password') }}</li>
                     @endif
-                    <span id="confrmpass" style="color:blue; font-weight:500"> </span>
+                    <span id="Confirm_pass"> </span>
                 </div>
             </div>
         @endif
@@ -87,7 +87,7 @@
                 @if ($errors->has('dob'))
                     <li style="color:red">{{ $errors->first('dob') }}</li>
                 @endif
-                <span id="birthdate" style="color:blue; font-weight:500"></span>
+                <span id="Birth_date"></span>
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
                 @if ($errors->has('gender'))
                     <li style="color:red">{{ $errors->first('gender') }}</li>
                 @endif
-                <span id="radio" style="color:blue; font-weight:500"></span>
+                <span id="radio"></span>
             </div>
         </div>
         <div class="col-sm">
@@ -111,7 +111,7 @@
                 @if ($errors->has('phone'))
                     <li style="color:red">{{ $errors->first('phone') }}</li>
                 @endif
-                <span id="phonenumber" style="color:blue; font-weight:500"> </span>
+                <span id="Phone_number"> </span>
             </div>
         </div>
     </div>
@@ -122,14 +122,14 @@
                 <label for="selectImage" class="form-label">Profile_pic</label>
                 <input type="file" value="{{ old('profile_pic') }} ||" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
                @if(isset($users->profile_pic))
-                    <img src="{{asset('storage/uploads/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
-                @endif
+                    <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
+                    @endif
                 @if ($errors->has('profile_pic'))
                     <li style="color:red">{{ $errors->first('profile_pic') }}</li>
                 @endif
 
                 <img id="preview" width="100" height="100" src="#" alt="your image" class="mt-3" style="display:none;"/>
-                <span id="profile_image" style="color:blue; font-weight:500"> </span>
+                <span id="profile_image"> </span>
 
             </div>
         </div>
@@ -156,12 +156,12 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-<script>
+{{-- <script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script>
+</script> --}}
 {{--
     <script>
         const today = new Date().toISOString().split('T')[0];

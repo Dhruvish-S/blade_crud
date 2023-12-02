@@ -11,7 +11,7 @@ use DataTables;
 use Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage as FacadesStorage;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -24,7 +24,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|alpha|min:2|max:20',
             'last_name' => 'required|alpha|min:2|max:20',
-            'email' => 'email:rfc,dns|required|unique:users,email|email',
+            'email' => 'email:rfc,dns|required|email',
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'confirm_password' => 'required|same:password|min:8',
             'dob' => 'required|date|before:-18 years',
@@ -34,7 +34,10 @@ class UserController extends Controller
         ]);
 
 $fileName = time() . '.' . $request->profile_pic->extension();
-$request->profile_pic->storeAs('public/uploads',$fileName);
+Storage::disk('public')->put($fileName, File::get($request->profile_pic));
+
+
+// $request->profile_pic->storeAs('public/uploads',$fileName);
 
         $inputArray = array(
             'first_name' => $request->first_name,
@@ -73,7 +76,8 @@ $request->profile_pic->storeAs('public/uploads',$fileName);
             $data = $userServices->get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('profile_pic', function ($row) {
-                    $data = asset('storage/uploads/' . $row->profile_pic);
+                    // $data = asset('storage/uploads/' . $row->profile_pic);
+                    $data = Storage::url($row->profile_pic);
                     return $data;
                 })
                 ->addColumn('action', function ($row) {
@@ -124,8 +128,8 @@ $request->profile_pic->storeAs('public/uploads',$fileName);
                 File::delete(public_path('uploads/') . $singleUserRecord[0]->profile_pic);
             }
             $fileName = time() . '.' . $request->profile_pic->extension();
-            $request->profile_pic->storeAs('public/uploads',$fileName);
-
+            // $request->profile_pic->storeAs('public/uploads',$fileName);
+            Storage::disk('public')->put($fileName, File::get($request->profile_pic));
         }
 
         $inputArray = array(

@@ -3,28 +3,28 @@ function validateForm()
 {
         var emails = document.getElementById('email').value;
         var pass = document.getElementById('password').value;
-        var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-        const emailMessage = (
+        const emailError = (
                 emails == "" ? "** Please fill the email" :
                 // emails.charAt(emails.length-4)!='.' && emails.charAt(emails.length-3)!='.' ? "*Invalid Position*" :
-                reg.test(emails) == false ? "*Invalid Position*" :
+                emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
                     ""
         );
-        document.getElementById('emailids').innerHTML = emailMessage;
-            if(emailMessage != ""){
+        document.getElementById('Email_ids').innerHTML = emailError;
+            if(emailError != ""){
                 return false;
             }
 
-        const passwordMessage = (
+        const passwordError = (
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
-            !regularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
+            !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
             ""
         )
-            document.getElementById('password12').innerHTML = passwordMessage;
-        if(passwordMessage != ""){
+            document.getElementById('password12').innerHTML = passwordError;
+        if(passwordError != ""){
             return false;
         }
 }
@@ -40,88 +40,84 @@ function validateForm12()
     var dobInput = document.getElementById('dob').value;
     var phone = document.getElementById('phone').value;
     var profile_pi = document.getElementById('selectImage').value;
-    var regularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
 
     // First name validation
-        const firstnameMessage = (
+        const fnameError = (
             first_name == "" ? "** Please fill the First name field" :
-            first_name.length <= 2 || first_name.length > 20 ? "*Firstname length must be between 2 and 20*" :
+            first_name.length <= 2 || first_name.length > 20 ? "*First name length must be between 2 and 20*" :
             !isNaN(first_name) ? "** only characters are allowed" :
             ""
         );
-        document.getElementById('firstname').innerHTML = firstnameMessage;
-        if(firstnameMessage != ""){
+        document.getElementById('First_name').innerHTML = fnameError;
+        if(fnameError != ""){
             return false;
         }
 
     // Last name validation
-        const lastnameMessage = (
+        const lnameError = (
             last_name == "" ? "** Please fill the Last name field" :
-            last_name.length <= 2 || last_name.length > 20 ? "*Lastname length must be between 2 and 20*" :
+            last_name.length <= 2 || last_name.length > 20 ? "*Last name length must be between 2 and 20*" :
                 !isNaN(last_name) ? "** only characters are allowed" :
                 ""
         );
-        document.getElementById('lastname').innerHTML = lastnameMessage;
-        if(lastnameMessage != ""){
+        document.getElementById('Last_name').innerHTML = lnameError;
+        if(lnameError != ""){
             return false;
         }
 
     // Email validation
-        const emailMessage = (
+        const emailError = (
             emails == "" ? "** Please fill the email" :
-            reg.test(emails) == false ? "*Invalid Position*" :
+            emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
             ""
         );
-        document.getElementById('emailids').innerHTML = emailMessage;
-        if(emailMessage != ""){
+        document.getElementById('Email_ids').innerHTML = emailError;
+        if(emailError != ""){
             return false;
         }
 
     // Password validation
-        const passwordMessage = (
+        const passwordError = (
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
-            !regularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
+            !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
             ""
         )
-        document.getElementById('password12').innerHTML = passwordMessage;
-        if(passwordMessage != ""){
+        document.getElementById('password12').innerHTML = passwordError;
+        if(passwordError != ""){
             return false;
         }
 
     // Confirm password validation
-        const confirmMessage = (
+        const confirmError = (
             confirmpass == "" ? "** Please fill the confirmpass field" :
             pass !=confirmpass ? "** Password does not match the confirm password" :
             ""
         );
-        document.getElementById('confrmpass').innerHTML = confirmMessage;
-        if(confirmMessage != ""){
+        document.getElementById('Confirm_pass').innerHTML = confirmError;
+        if(confirmError != ""){
             return false;
         }
 
     //Date of birth validation
         if(dobInput == ""){
-            document.getElementById('birthdate').innerHTML =" ** Please fill the Date of birth field";
+            document.getElementById('Birth_date').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
-        const dob = new Date(dobInput.value);
-        const today = new Date();
-        const age = today.getFullYear() - dob.getFullYear();
+        const dobInput1 = document.getElementById('dob').value;
+        const birthdate = new Date(dobInput1);
+        const currentDate = new Date();
+        const age = currentDate.getFullYear() - birthdate.getFullYear();
         if (age < 18) {
-            document.getElementById('birthdate').innerHTML = "** The date difference is less than -18 years";
+            document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
             return false;
         } else {
-            document.getElementById('birthdate').innerHTML ="";
+            document.getElementById('Birth_date').innerHTML ="";
         }
-
-        // const dob = document.getElementById('dob'); // Replace with the actual date of birth from your form
-        // const isUser18OrOlder = (new Date().getFullYear() - new Date(dob).getFullYear()) >= 18;
-        // const validationMessage = isUser18OrOlder ? 'User is 18 or older' : 'User is not 18 yet';
-        // console.log(validationMessage);
 
 
 
@@ -135,14 +131,14 @@ function validateForm12()
         }
 
     //Phone validation
-        const phoneMessage = (
+        const phoneError = (
             phone == "" ? "** Please add the Phone number" :
             isNaN(phone) ? "**  user must write digits only not characters" :
             phone.length!=10 ? "** Mobile Number must be 10 digits only" :
             ""
         );
-        document.getElementById('phonenumber').innerHTML = phoneMessage;
-        if(phoneMessage != ""){
+        document.getElementById('Phone_number').innerHTML = phoneError;
+        if(phoneError != ""){
             return false;
         }
 

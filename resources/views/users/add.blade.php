@@ -132,7 +132,7 @@
 
     <div class="row">
         <div class="col-sm">
-            <div class="mb-3" style="margin-top:30px">
+            <div class="mb-3 bottomButton">
                 @if(isset($users))
                     <button type="submit" class="btn btn-primary" name="submit" value="submit" >Update</button>
                     <a class="btn btn-primary" href="{{ url('users/dashboard') }}">Back</a>

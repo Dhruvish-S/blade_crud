@@ -23,7 +23,7 @@
             <label for="first_name" class="form-label">First name</label>
             <input type="text" class="form-control" id="first_name"  value="{{ old('first_name', $users->first_name ?? '') }}" name="first_name">
               @if ($errors->has('first_name'))
-                      <li style="color:red">{{ $errors->first('first_name') }}</li>
+                      <li>{{ $errors->first('first_name') }}</li>
               @endif
               <span id="First_name"></span>
         </div>
@@ -33,7 +33,7 @@
             <label for="last_name" class="form-label">Last name</label>
             <input type="text" class="form-control" id="last_name" value="{{ old('last_name', $users->last_name ?? '') }}" name="last_name" value="{{ old('last_name') }}">
             @if ($errors->has('last_name'))
-                    <li style="color:red">{{ $errors->first('last_name') }}</li>
+                    <li>{{ $errors->first('last_name') }}</li>
             @endif
             <span id="Last_name"> </span>
         </div>
@@ -46,7 +46,7 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $users->email ?? '') }}">
                 @if ($errors->has('email'))
-                        <li style="color:red">{{ $errors->first('email') }}</li>
+                        <li>{{ $errors->first('email') }}</li>
                 @endif
                 <span id="Email_ids"> </span>
             </div>
@@ -60,7 +60,7 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password"  class="form-control" id="password" name="password" value="{{ old('password') }}">
                     @if ($errors->has('password'))
-                        <li style="color:red">{{ $errors->first('password') }}</li>
+                        <li>{{ $errors->first('password') }}</li>
                     @endif
                 </div>
                 <span id="password12"></span>
@@ -70,7 +70,7 @@
                     <label for="confirm_password" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="confirm_password" value="{{ old('confirm_password') }}" name="confirm_password">
                     @if ($errors->has('confirm_password'))
-                            <li style="color:red">{{ $errors->first('confirm_password') }}</li>
+                            <li>{{ $errors->first('confirm_password') }}</li>
                     @endif
                     <span id="Confirm_pass"> </span>
                 </div>
@@ -85,7 +85,7 @@
                 {{-- <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="{{ isset($yearDifference) ?? Date('d-m-Y') }}" name="dob"> --}}
                 <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="" name="dob">
                 @if ($errors->has('dob'))
-                    <li style="color:red">{{ $errors->first('dob') }}</li>
+                    <li>{{ $errors->first('dob') }}</li>
                 @endif
                 <span id="Birth_date"></span>
             </div>
@@ -99,7 +99,7 @@
                 <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male
                 <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female' || old('gender') == 'Female') checked @endif> Female
                 @if ($errors->has('gender'))
-                    <li style="color:red">{{ $errors->first('gender') }}</li>
+                    <li>{{ $errors->first('gender') }}</li>
                 @endif
                 <span id="radio"></span>
             </div>
@@ -109,7 +109,7 @@
                 <label for="phone" class="form-label">Phone</label>
                 <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $users->phone ?? '') }}">
                 @if ($errors->has('phone'))
-                    <li style="color:red">{{ $errors->first('phone') }}</li>
+                    <li>{{ $errors->first('phone') }}</li>
                 @endif
                 <span id="Phone_number"> </span>
             </div>
@@ -125,7 +125,7 @@
                     <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
                     @endif
                 @if ($errors->has('profile_pic'))
-                    <li style="color:red">{{ $errors->first('profile_pic') }}</li>
+                    <li>{{ $errors->first('profile_pic') }}</li>
                 @endif
 
                 <img id="preview" width="100" height="100" src="#" alt="your image" class="mt-3" style="display:none;"/>
@@ -156,12 +156,12 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-{{-- <script>
+<script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script> --}}
+</script>
 {{--
     <script>
         const today = new Date().toISOString().split('T')[0];

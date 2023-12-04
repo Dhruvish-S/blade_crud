@@ -12,6 +12,7 @@ use Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage as FacadesStorage;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\UserRegisterJob;
 
 class UserController extends Controller
 {
@@ -60,12 +61,14 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
             'email' => $request->email,
         );
 
-        Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
-            $message->to($email_data['email'], $email_data['first_name'], $email_data['last_name'])
-                ->subject('Welcome to Register User')
-                ->from('dsorathiya@patoliyainfotech.com', 'RegisterUser');
-        });
-        Auth::logout();
+        // Mail::send('users/welcomeemail', $email_data, function ($message) use ($email_data) {
+        //     $message->to($email_data['email'], $email_data['first_name'], $email_data['last_name'])
+        //         ->subject('Welcome to Register User')
+        //         ->from('dsorathiya@patoliyainfotech.com', 'RegisterUser');
+        // });
+
+        dispatch(new UserRegisterJob($email_data));
+        // Auth::logout();
         return redirect('/');
 
     }
@@ -164,8 +167,8 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
     {
         $user = User::find($id);
         $request->validate([
-            'current_password' => ['required', 'string', 'min:8'],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
+            'current_password' => ['required', 'string', 'min:8','regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
+            'password' => ['required', 'string', 'min:8', 'confirmed','regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/']
         ]);
         $currentPasswordStatus = Hash::check($request->current_password, $user->password);
 

@@ -29,7 +29,7 @@ function validateForm()
 }
 
 // Register Validation function
-function validateForm12()
+function registerValidateForm()
 {
     var first_name = document.getElementById('first_name').value;
     var last_name = document.getElementById('last_name').value;
@@ -109,11 +109,15 @@ function validateForm12()
         }
 
     let currentDate = new Date();
-	let birthdate = new Date(dobInput);
+	let birthDate = new Date(dobInput);
 	// return if age is over 18
-	let diff = new Date(currentDate - birthdate)
+	let diff = new Date(currentDate - birthDate)
 	let age = Math.abs(diff.getUTCFullYear() - 1970);
 
+    if(age > 18){
+        document.getElementById('Birth_date').innerHTML = "The date difference is greater than 18 years";
+            return false;
+    }
     if(age < 18){
         document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
             return false;

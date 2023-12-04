@@ -3,6 +3,30 @@
         max-width: 900px !important;
     }
 }
+
+
+@media only screen and (min-width: 600px) {
+    .container .table-responsive {
+        padding: 20px;
+        margin-left:-50px;
+    }
+    .table-responsive table {
+        width: 100%;
+        max-width: 100%;
+
+    }
+    table.dataTable{
+        padding: 40px;
+        margin-left:-50px;
+    }
+    .addUser{
+        float: right;
+    }
+
+}
+
+/* Register page css and login page */
+
 .container{
     border:2px solid black;
     outline : none;
@@ -37,3 +61,23 @@ li{
     color:red;
 }
 
+
+/* dashboard css */
+
+.dashboardContainer {
+    margin-left: 6% !important;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-responsive table {
+    width: 100%;
+    max-width: 100%;
+
+}
+ table.dataTable{
+        padding: 0px;
+        margin-left:0px;
+}

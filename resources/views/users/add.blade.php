@@ -52,7 +52,7 @@
             <div class="col-sm">
                 <div class="mb-3" >
                     <label for="password" class="form-label">Password</label>
-                    <input type="password"  class="form-control" id="password" name="password" value="{{ old('password') }}">
+                    <input type="password" autocomplete="off"  class="form-control" id="password" name="password" value="{{ old('password') }}">
                     @if ($errors->has('password'))
                         <li>{{ $errors->first('password') }}</li>
                     @endif
@@ -63,7 +63,7 @@
             <div class="col-sm">
                 <div class="mb-3">
                     <label for="confirm_password" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirm_password" value="{{ old('confirm_password') }}" name="confirm_password">
+                    <input type="password" autocomplete="off" class="form-control" id="confirm_password" value="{{ old('confirm_password') }}" name="confirm_password">
                     @if ($errors->has('confirm_password'))
                             <li>{{ $errors->first('confirm_password') }}</li>
                     @endif
@@ -147,19 +147,17 @@
 
     </form>
 </div>
-
-
-{{-- <script>
+<script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script> --}}
+</script>
 
-    <script>
+    {{-- <script>
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('dob').setAttribute('max', today);
-    </script>
+    </script> --}}
 
     <script>
         selectImage.onchange = evt => {
@@ -172,5 +170,4 @@
 
         }
     </script>
-</html>
 @endsection

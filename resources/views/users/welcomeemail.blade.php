@@ -1,7 +1,8 @@
 @extends('layout.app')
-@section('title') Email Verification @endsection
+@section('title')
+    Email Verification
+@endsection
 @section('content')
-
     <div class="d-flex justify-content-center align-items-center  w-100" style="height:500px;">
         <div class="bg-light box card" style="width: 500px; height: 400px;  box-shadow: 5px 4px 2px 3px;">
             <div class="icon" style="display: flex;align-items: center;justify-content: center;">

@@ -22,8 +22,16 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('users/dashboard');
+            if($request->user()->email_verified_at){
+                $request->session()->regenerate();
+                return redirect()->intended('users/dashboard');
+            }
+            else{
+                Auth::logout();
+                return back()->with([
+                    'fail' => 'Please verify your email first.',
+                ]);
+            }
         }
         return back()->with([
             'fail' => 'The provided credentials do not match our records.',

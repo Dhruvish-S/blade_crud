@@ -89,7 +89,7 @@
 
     <div class="row">
         <div class="col-sm">
-            <div class="mb-3" style="margin-top:30px">
+            <div class="mb-3 centerGender">
                 <label for="gender" class="form-label">Gender: </label>
                 <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male
                 <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female' || old('gender') == 'Female') checked @endif> Female

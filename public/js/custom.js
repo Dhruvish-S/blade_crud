@@ -8,11 +8,10 @@ function validateForm()
 
         const emailError = (
                 emails == "" ? "** Please fill the email" :
-                // emails.charAt(emails.length-4)!='.' && emails.charAt(emails.length-3)!='.' ? "*Invalid Position*" :
                 emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
                     ""
         );
-        document.getElementById('Email_ids').innerHTML = emailError;
+        document.getElementById('email_ids').innerHTML = emailError;
             if(emailError != ""){
                 return false;
             }
@@ -36,7 +35,7 @@ function validateForm12()
     var last_name = document.getElementById('last_name').value;
     var emails = document.getElementById('email').value;
     var pass = document.getElementById('password').value;
-    var confirmpass = document.getElementById('confirm_password').value;
+    var confirm_pass = document.getElementById('confirm_password').value;
     var dobInput = document.getElementById('dob').value;
     var phone = document.getElementById('phone').value;
     var profile_pi = document.getElementById('selectImage').value;
@@ -94,8 +93,8 @@ function validateForm12()
 
     // Confirm password validation
         const confirmError = (
-            confirmpass == "" ? "** Please fill the confirmpass field" :
-            pass !=confirmpass ? "** Password does not match the confirm password" :
+            confirm_pass == "" ? "** Please fill the confirm pass field" :
+            pass !=confirm_pass ? "** Password does not match the confirm password" :
             ""
         );
         document.getElementById('Confirm_pass').innerHTML = confirmError;
@@ -108,16 +107,21 @@ function validateForm12()
             document.getElementById('Birth_date').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
-        const dobInput1 = document.getElementById('dob').value;
-        const birthdate = new Date(dobInput1);
-        const currentDate = new Date();
-        const age = currentDate.getFullYear() - birthdate.getFullYear();
-        if (age < 18) {
-            document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
+
+    let currentDate = new Date();
+	let birthdate = new Date(dobInput);
+	// return if age is over 18
+	let diff = new Date(currentDate - birthdate)
+	let age = Math.abs(diff.getUTCFullYear() - 1970);
+
+    if(age < 18){
+        document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
             return false;
-        } else {
-            document.getElementById('Birth_date').innerHTML ="";
-        }
+    }
+    else{
+        document.getElementById('Birth_date').innerHTML ="";
+    }
+
 
 
 

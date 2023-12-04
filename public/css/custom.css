@@ -1,4 +1,8 @@
-
+@media only screen and (min-width: 600px) {
+    .registerContainer {
+        max-width: 900px !important;
+    }
+}
 .container{
     border:2px solid black;
     outline : none;
@@ -28,3 +32,8 @@ span{
     margin-top:10px;
     margin-right:-182px;
 }
+
+li{
+    color:red;
+}
+

@@ -7,10 +7,8 @@ use App\Services\UserServices;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
-use DataTables;
-use Mail;
+use Yajra\DataTables\DataTables;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage as FacadesStorage;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\UserRegisterJob;
 
@@ -34,11 +32,9 @@ class UserController extends Controller
             'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-$fileName = time() . '.' . $request->profile_pic->extension();
-Storage::disk('public')->put($fileName, File::get($request->profile_pic));
-
-
-// $request->profile_pic->storeAs('public/uploads',$fileName);
+        $fileName = time() . '.' . $request->profile_pic->extension();
+        Storage::disk('public')->put($fileName, File::get($request->profile_pic));
+        // $request->profile_pic->storeAs('public/uploads',$fileName);
 
         $inputArray = array(
             'first_name' => $request->first_name,
@@ -68,14 +64,15 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
         // });
 
         dispatch(new UserRegisterJob($email_data));
-        // Auth::logout();
+        Auth::logout();
         return redirect('/');
 
     }
     public function index(Request $request)
     {
         $userServices = new UserServices();
-        if ($request->ajax()) {
+        if ($request->ajax())
+        {
             $data = $userServices->get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('profile_pic', function ($row) {
@@ -99,9 +96,11 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
     {
         $userServices = new UserServices();
         $query = $userServices->delete($id);
-        if ($query == 1) {
+        if ($query == 1)
+        {
             return redirect('/users/dashboard')->with('success', 'User deleted successfully.');
-        } else {
+        } else
+        {
             return redirect('/users/dashboard')->with('error', 'Something went wrong.');
         }
     }
@@ -126,8 +125,10 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
         $userServices = new UserServices();
         $singleUserRecord = $userServices->getById($id);
 
-        if ($request->file('profile_pic')) {
-            if (File::exists(public_path('uploads/') . $singleUserRecord[0]->profile_pic)) {
+        if ($request->file('profile_pic'))
+        {
+            if (File::exists(public_path('uploads/') . $singleUserRecord[0]->profile_pic))
+            {
                 File::delete(public_path('uploads/') . $singleUserRecord[0]->profile_pic);
             }
             $fileName = time() . '.' . $request->profile_pic->extension();
@@ -144,15 +145,18 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
             'phone' => $request->phone,
         );
 
-        if ($request->file('profile_pic')) {
+        if ($request->file('profile_pic'))
+        {
             $inputArray['profile_pic'] = $fileName;
         }
 
         $query = $userServices->update($id, $inputArray);
 
-        if ($query) {
+        if ($query)
+        {
             return redirect('/users/dashboard')->with('success', 'User updated successfully.');
-        } else {
+        } else
+        {
             return redirect('/users/dashboard')->with('error', 'Something went wrong.');
         }
 
@@ -167,19 +171,21 @@ Storage::disk('public')->put($fileName, File::get($request->profile_pic));
     {
         $user = User::find($id);
         $request->validate([
-            'current_password' => ['required', 'string', 'min:8','regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
-            'password' => ['required', 'string', 'min:8', 'confirmed','regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/']
+            'current_password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
+            'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/']
         ]);
         $currentPasswordStatus = Hash::check($request->current_password, $user->password);
 
-        if ($currentPasswordStatus) {
+        if ($currentPasswordStatus)
+        {
 
             $user->update([
                 'password' => Hash::make($request->password),
             ]);
             return redirect()->back()->with('message', 'Password Updated Successfully');
 
-        } else {
+        } else
+        {
 
             return redirect()->back()->with('message', 'Current Password does not match with Old Password');
         }

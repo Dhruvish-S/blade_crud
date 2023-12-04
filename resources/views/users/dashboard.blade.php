@@ -3,46 +3,8 @@
     User List
 @endsection
 @section('content')
-    <style>
-        @media only screen and (min-width: 600px) {
-            .container .table-responsive {
-                padding: 20px;
-                margin-left:-50px;
-            }
-            .table-responsive table {
-                width: 100%;
-                max-width: 100%;
 
-            }
-            table.dataTable{
-                padding: 40px;
-                margin-left:-50px;
-            }
-            .addUser{
-                float: right;
-            }
-
-        }
-
-        .container {
-            margin-left: 6% !important;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .table-responsive table {
-            width: 100%;
-            max-width: 100%;
-
-        }
-         table.dataTable{
-                padding: 0px;
-                margin-left:0px;
-            }
-    </style>
-    <div class="container" style="border:none">
+    <div class="container dashboardContainer" style="border:none">
         <a class="btn btn-primary addUserDashboard"
             href="{{ url('register') }}">Add User</a>
         <a class="btn btn-primary addLogoutDashboard"  href="{{ url('logout') }}">LogOut</a>

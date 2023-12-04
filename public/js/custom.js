@@ -29,7 +29,7 @@ function validateForm()
 }
 
 // Register Validation function
-function validateForm12()
+function registerValidateForm()
 {
     var first_name = document.getElementById('first_name').value;
     var last_name = document.getElementById('last_name').value;

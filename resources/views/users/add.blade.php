@@ -8,7 +8,7 @@
         <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">
         @method('PUT')
     @else
-        <form action="{{ url('users/store') }}" method="POST" enctype="multipart/form-data" id="form" name="userForm" onsubmit="return validateForm12()">
+        <form action="{{ url('users/store') }}" method="POST" enctype="multipart/form-data" id="form" name="userForm" onsubmit="return registerValidateForm()">
     @endif
     @csrf
     <div class="row">

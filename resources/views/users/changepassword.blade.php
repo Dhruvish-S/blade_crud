@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-    <div class="container" style="margin-top:40px">
+    <div class="container changePassword">
         <a class="btn btn-primary" style="float:right" href="{{ url('users/dashboard') }}">Back</a>
         <h1>Change password</h1>
         @if (session('message'))

@@ -14,7 +14,7 @@
                 </div>
             @endif
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
                     aria-describedby="emailHelp">
                 <span class="text-danger">
@@ -25,7 +25,7 @@
                 <span id="email_ids"></span>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" value="{{ old('password') }}" name="password">
                 <span class="text-danger">
                     @error('password')

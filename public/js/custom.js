@@ -8,7 +8,7 @@ function validateForm()
 
         const emailError = (
                 emails == "" ? "** Please fill the email" :
-                emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
+                emailRegularExpression.test(emails) == false ? "*Invalid email*" :
                     ""
         );
         document.getElementById('email_ids').innerHTML = emailError;
@@ -18,7 +18,6 @@ function validateForm()
 
         const passwordError = (
             pass == "" ? "** Please fill the password field" :
-            pass.length<8 ? "** Passwords length must be 8 Characters" :
             !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
             ""
         )
@@ -114,10 +113,6 @@ function registerValidateForm()
 	let diff = new Date(currentDate - birthDate)
 	let age = Math.abs(diff.getUTCFullYear() - 1970);
 
-    if(age > 18){
-        document.getElementById('Birth_date').innerHTML = "The date difference is greater than 18 years";
-            return false;
-    }
     if(age < 18){
         document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
             return false;

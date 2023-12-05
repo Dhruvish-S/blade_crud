@@ -23,7 +23,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|alpha|min:2|max:20',
             'last_name' => 'required|alpha|min:2|max:20',
-            'email' => 'email:rfc,dns|required|email',
+            'email' => 'required|email|email:rfc,dns|unique:users,email',
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'confirm_password' => 'required|same:password',
             'dob' => 'required|date|before:-18 years',
@@ -120,7 +120,7 @@ class UserController extends Controller
             'dob' => 'required|date|before:-18 years',
             'gender' => 'required',
             'phone' => 'required|integer|digits:10',
-            'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'profile_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $userServices = new UserServices();
         $singleUserRecord = $userServices->getById($id);

@@ -1,7 +1,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -31,9 +30,9 @@
 <body>
     <div id="app">
         @if (isset($users))
-            <div class="text" style="margin-left: 40px">
-                <h3 style="padding:10px">Welecome to the dashboard : {{ Auth::user()->first_name }}</h3>
-                <a class="btn btn-primary" style="float: right; margin-top:-52px;margin-right:16px; "
+            <div class="text textLeft">
+                <h3 class="mainHeading">Welecome to the dashboard : {{ Auth::user()->first_name }}</h3>
+                <a class="btn btn-primary addLogout"
                     href="{{ url('logout') }}">LogOut</a>
                 <hr>
             </div>

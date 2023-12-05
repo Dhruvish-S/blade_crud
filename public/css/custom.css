@@ -71,6 +71,9 @@ li{
     display: none;
     margin-top:10px;
 }
+.UpdatepreviewImage{
+    margin-top:10px;
+}
 
 /* dashboard css */
 
@@ -100,4 +103,15 @@ li{
 }
 .backButton{
     float:right;
+}
+
+/* app.blade.php */
+.textLeft{
+    margin-left:40px;
+}
+.addLogout{
+    float: right; margin-top:-52px;margin-right:16px;
+}
+.mainHeading{
+    padding:10px;
 }

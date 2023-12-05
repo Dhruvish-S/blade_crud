@@ -5,7 +5,7 @@
 <div class="container registerContainer">
     <h2>@if (isset($users)) Edit @else Add @endif User</h2>
     @if (isset($users))
-        <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"  enctype="multipart/form-data">
+        <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"   enctype="multipart/form-data">
         @method('PUT')
     @else
         <form action="{{ url('users/store') }}" method="POST" enctype="multipart/form-data" id="form" name="userForm" onsubmit="return registerValidateForm()">
@@ -117,7 +117,7 @@
                 <label for="selectImage" class="form-label">Profile_pic</label>
                 <input type="file" value="{{ old('profile_pic') }}" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
                @if(isset($users->profile_pic))
-                    <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
+                    <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" class="UpdatepreviewImage" alt="" width="100" height="100">
                     @endif
                 @if ($errors->has('profile_pic'))
                     <li>{{ $errors->first('profile_pic') }}</li>
@@ -153,12 +153,10 @@
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
 </script>
-
     {{-- <script>
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('dob').setAttribute('max', today);
     </script> --}}
-
     <script>
         selectImage.onchange = evt => {
             preview = document.getElementById('preview');

@@ -14,6 +14,16 @@ use App\Jobs\UserRegisterJob;
 
 class UserController extends Controller
 {
+    public function checkUniqueEmail(Request $request) {
+        $checkEmail = User::where('email', $request['email'])->first();
+
+        if ($checkEmail) {
+            return response()->json(['isUnique' => false,'email'=>$request['email']]);
+        }else{
+            return response()->json(['isUnique' => true,'email'=>$request['email']]);
+        }
+    }
+
     public function create()
     {
         return view('users/add');

@@ -68,18 +68,43 @@ function registerValidateForm()
         }
 
     // Email validation
-        const emailError = (
+        let emailError = (
             emails == "" ? "** Please fill the email" :
             emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
             ""
         );
+
+        $("#email").blur(function(){
+            const email = $("#email").val();
+            $.ajax({
+                type:'POST',
+                url:'/checkUniqueEmail',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{email},
+                success:function(data){
+                    // console.log(data);
+                    if(data.isUnique === false){
+                        emailError = "Email already exists";
+                        $("#Email_ids").text(emailError);
+                    }
+                    else{
+                        emailError = "";
+                        $("#Email_ids").text("");
+                    }
+
+                }
+            });
+        });
         document.getElementById('Email_ids').innerHTML = emailError;
         if(emailError != ""){
             return false;
         }
 
+
     // Password validation
-        const passwordError = (
+        let passwordError = (
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
             !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :

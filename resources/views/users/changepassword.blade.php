@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="container changePassword">
-        <a class="btn btn-primary" style="float:right" href="{{ url('users/dashboard') }}">Back</a>
+        <a class="btn btn-primary backButton" href="{{ url('users/dashboard') }}">Back</a>
         <h1>Change password</h1>
         @if (session('message'))
             <h5 class="alert alert-success mb-2">{{ session('message') }}</h5>

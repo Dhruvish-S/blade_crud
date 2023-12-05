@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title') User Register | Edit @endsection
+@section('title') @if (isset($users)) Edit @else Add @endif User @endsection
 @section('content')
 
 <div class="container registerContainer">
@@ -29,7 +29,7 @@
             @if ($errors->has('last_name'))
                     <li>{{ $errors->first('last_name') }}</li>
             @endif
-            <span id="Last_name"> </span>
+            <span id="Last_name"></span>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
                 @if ($errors->has('email'))
                         <li>{{ $errors->first('email') }}</li>
                 @endif
-                <span id="Email_ids"> </span>
+                <span id="Email_ids"></span>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                     @if ($errors->has('confirm_password'))
                             <li>{{ $errors->first('confirm_password') }}</li>
                     @endif
-                    <span id="Confirm_pass"> </span>
+                    <span id="Confirm_pass"></span>
                 </div>
             </div>
         @endif
@@ -106,7 +106,7 @@
                 @if ($errors->has('phone'))
                     <li>{{ $errors->first('phone') }}</li>
                 @endif
-                <span id="Phone_number"> </span>
+                <span id="Phone_number"></span>
             </div>
         </div>
     </div>
@@ -115,7 +115,7 @@
         <div class="col-sm">
             <div class="mb-3">
                 <label for="selectImage" class="form-label">Profile_pic</label>
-                <input type="file" value="{{ old('profile_pic') }} ||" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
+                <input type="file" value="{{ old('profile_pic') }}" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
                @if(isset($users->profile_pic))
                     <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" alt="" width="100" height="100">
                     @endif
@@ -123,8 +123,8 @@
                     <li>{{ $errors->first('profile_pic') }}</li>
                 @endif
 
-                <img id="preview" width="100" height="100" src="#" alt="your image" class="mt-3" style="display:none;"/>
-                <span id="profile_image"> </span>
+                <img id="preview" class="previewImages" width="100" height="100" src="#" alt="your image" class="mt-3"/>
+                <span id="profile_image"></span>
 
             </div>
         </div>

@@ -67,6 +67,10 @@ li{
 .bottomButton{
     margin-top:30px;
 }
+.previewImages{
+    display: none;
+    margin-top:10px;
+}
 
 /* dashboard css */
 
@@ -88,6 +92,8 @@ li{
         padding: 0px;
         margin-left:0px;
 }
+
+/* ChangePassword css */
 
 .changePassword{
     margin-top:40px;

@@ -23,15 +23,15 @@
             @csrf
             <div class="mb-3">
                 <label for="oldpassword" class="form-label">Current Password</label>
-                <input type="text" class="form-control" name="current_password">
+                <input type="password" class="form-control" name="current_password">
             </div>
             <div class="mb-3">
                 <label for="newpassword" class="form-label">New Password</label>
-                <input type="text" class="form-control" name="password">
+                <input type="password" class="form-control" name="password">
             </div>
             <div class="mb-3">
                 <label for="confirmpassword" class="form-label">Confirm New Password</label>
-                <input type="text" class="form-control" name="password_confirmation">
+                <input type="password" class="form-control" name="password_confirmation">
             </div>
             <button type="submit" class="btn btn-primary" name="submitButton">Submit</button>
         </form>

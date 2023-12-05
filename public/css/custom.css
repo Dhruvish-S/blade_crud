@@ -72,6 +72,7 @@ li{
 
 .dashboardContainer {
     margin-left: 6% !important;
+    border:none;
 }
 
 .table-responsive {
@@ -90,4 +91,7 @@ li{
 
 .changePassword{
     margin-top:40px;
+}
+.backButton{
+    float:right;
 }

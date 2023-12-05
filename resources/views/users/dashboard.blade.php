@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-    <div class="container dashboardContainer" style="border:none">
+    <div class="container dashboardContainer">
         <a class="btn btn-primary addUserDashboard"
             href="{{ url('register') }}">Add User</a>
         <a class="btn btn-primary addLogoutDashboard"  href="{{ url('logout') }}">LogOut</a>

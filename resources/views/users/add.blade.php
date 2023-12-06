@@ -77,7 +77,6 @@
         <div class="col-sm">
             <div class="mb-3">
                 <label for="dob" class="form-label">Dob</label>
-                {{-- <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="{{ isset($yearDifference) ?? Date('d-m-Y') }}" name="dob"> --}}
                 <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="" name="dob">
                 @if ($errors->has('dob'))
                     <li>{{ $errors->first('dob') }}</li>
@@ -138,7 +137,7 @@
                     <a class="btn btn-primary" href="{{ url('users/dashboard') }}">Back</a>
                     <a class="btn btn-primary" href="{{ url('change-password/'.$users->id) }}">Change Password</a>
                 @else
-                    <button type="submit" class="btn btn-primary" name="submit" value="submit">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="register" name="submit" value="submit">Submit</button>
                     <a class="btn btn-primary" href="{{ url('/') }}">login</a>
                 @endif
             </div>
@@ -153,19 +152,16 @@
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
 </script>
-    {{-- <script>
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('dob').setAttribute('max', today);
-    </script> --}}
-    <script>
-        selectImage.onchange = evt => {
-            preview = document.getElementById('preview');
-            preview.style.display = 'block';
-            const [file] = selectImage.files
-            if (file) {
-                preview.src = URL.createObjectURL(file)
-            }
-
+<script>
+    selectImage.onchange = evt => {
+        preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        const [file] = selectImage.files
+        if (file) {
+            preview.src = URL.createObjectURL(file)
         }
-    </script>
+
+    }
+</script>
+
 @endsection

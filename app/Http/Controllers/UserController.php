@@ -11,6 +11,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\UserRegisterJob;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -30,6 +31,12 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
+        // $checkEmail = User::where('email', $request['email'])->first();
+
+        // if ($checkEmail) {
+        //     // return response()->json(['isUnique233' => false,'email'=>$request['email']]);
+        //     return Redirect::back()->withErrors(['email' => 'Email is already used']);
+        // }
         $request->validate([
             'first_name' => 'required|alpha|min:2|max:20',
             'last_name' => 'required|alpha|min:2|max:20',
@@ -137,9 +144,9 @@ class UserController extends Controller
 
         if ($request->file('profile_pic'))
         {
-            if (File::exists(public_path('uploads/') . $singleUserRecord[0]->profile_pic))
+            if (File::exists(public_path('storage/') . $singleUserRecord[0]->profile_pic))
             {
-                File::delete(public_path('uploads/') . $singleUserRecord[0]->profile_pic);
+                File::delete(public_path('storage/') . $singleUserRecord[0]->profile_pic);
             }
             $fileName = time() . '.' . $request->profile_pic->extension();
             // $request->profile_pic->storeAs('public/uploads',$fileName);

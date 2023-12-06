@@ -1,6 +1,7 @@
 // Login Validation function
-function validateForm()
+function validateForm(event)
 {
+    event.preventDefault();
         var emails = document.getElementById('email').value;
         var pass = document.getElementById('password').value;
         var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
@@ -18,7 +19,7 @@ function validateForm()
 
         const passwordError = (
             pass == "" ? "** Please fill the password field" :
-            !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
+            !passwordRegularExpression.test(pass) ? "** Invalid password" :
             ""
         )
             document.getElementById('password12').innerHTML = passwordError;
@@ -28,7 +29,7 @@ function validateForm()
 }
 
 // Register Validation function
-function registerValidateForm()
+ function registerValidateForm()
 {
     var first_name = document.getElementById('first_name').value;
     var last_name = document.getElementById('last_name').value;
@@ -43,7 +44,7 @@ function registerValidateForm()
     var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
 
-    // First name validation
+    First name validation
         const fnameError = (
             first_name == "" ? "** Please fill the First name field" :
             first_name.length <= 2 || first_name.length > 20 ? "*First name length must be between 2 and 20*" :
@@ -68,42 +69,33 @@ function registerValidateForm()
         }
 
     // Email validation
+
         let emailError = (
             emails == "" ? "** Please fill the email" :
             emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
-            ""
-        );
 
-        $("#email").blur(function(){
-            const email = $("#email").val();
-            $.ajax({
-                type:'POST',
-                url:'/checkUniqueEmail',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data:{email},
-                success:function(data){
-                    // console.log(data);
-                    if(data.isUnique === false){
-                        emailError = "Email already exists";
-                        $("#Email_ids").text(emailError);
-                    }
-                    else{
-                        emailError = "";
-                        $("#Email_ids").text("");
-                    }
+            validateEmail(function(response) {
+                if(response.isUnique === false){
+                    emailError = 'Email already exists';
+                    $("#Email_ids").text(emailError);
+                    console.log('if');
+                    // return false
+                }
+                else if(response.isUnique === true){
+                    emailError = "";
+                    console.log('else');
+                    $("#Email_ids").text("");
 
                 }
-            });
-        });
+            })
+
+        );
         document.getElementById('Email_ids').innerHTML = emailError;
         if(emailError != ""){
             return false;
         }
 
-
-    // Password validation
+        // Password validation
         let passwordError = (
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
@@ -111,9 +103,26 @@ function registerValidateForm()
             ""
         )
         document.getElementById('password12').innerHTML = passwordError;
+
         if(passwordError != ""){
             return false;
         }
+
+
+  function validateEmail(callback) {
+    const emailInput = $('#email').val();
+         $.ajax({
+            url:'/checkUniqueEmail',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: { email: emailInput },
+            success: function(response) {
+                callback(response)
+            }
+        });
+    }
 
     // Confirm password validation
         const confirmError = (
@@ -145,9 +154,6 @@ function registerValidateForm()
     else{
         document.getElementById('Birth_date').innerHTML ="";
     }
-
-
-
 
     //Gender validation
         if (!document.querySelector('input[name="gender"]:checked')) {

@@ -110,7 +110,9 @@ li{
     margin-left:40px;
 }
 .addLogout{
-    float: right; margin-top:-52px;margin-right:16px;
+    float: right;
+     margin-top:-52px;
+     margin-right:16px;
 }
 .mainHeading{
     padding:10px;

@@ -175,7 +175,7 @@
       var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(!filter.test(email))
       {
-            $('#Email_ids').html('<label class="text-danger">Invalid Email</label>');
+            $('#Email_ids').html('<label class="textColorAjax">Invalid Email</label>');
             $('#email').addClass('has-error');
             $('#register').attr('disabled', 'disabled');
       }
@@ -196,7 +196,7 @@
                 }
                 else
                 {
-                    $('#Email_ids').html('<label class="text-danger">Email is exist</label>');
+                    $('#Email_ids').html('<label class="textColorAjax">Email is exist</label>');
                     $('#email').addClass('has-error');
                     $('#register').attr('disabled', 'disabled');
                 }

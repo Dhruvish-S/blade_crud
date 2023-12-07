@@ -75,11 +75,6 @@ function validateForm(event)
         document.getElementById('Email_ids').innerHTML =" ** Please fill the Email";
         return false;
     }
-    if(emailRegularExpression.test(emails) == false)
-    {
-        document.getElementById('Email_ids').innerHTML =" **InValid";
-        return false;
-    }
 
         // Password validation
         let passwordError = (

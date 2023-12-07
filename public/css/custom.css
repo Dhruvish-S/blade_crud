@@ -74,6 +74,10 @@ li{
 .UpdatepreviewImage{
     margin-top:10px;
 }
+.textColorAjax{
+    color:blue;
+    font-weight:500;
+}
 
 /* dashboard css */
 

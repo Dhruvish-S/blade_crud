@@ -146,7 +146,7 @@
 
     </form>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" type="text/javascript"></script>
+
 
 <script>
     var currentDate = new Date();
@@ -165,6 +165,7 @@
 
     }
 </script>
+{{-- Email exist or not validation --}}
 <script>
     $(document).ready(function(){
 
@@ -192,7 +193,6 @@
                     $('#Email_ids').html('');
                     $('#email').removeClass('has-error');
                     $('#register').attr('disabled', false);
-
                 }
                 else
                 {

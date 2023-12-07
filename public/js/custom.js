@@ -1,7 +1,6 @@
 // Login Validation function
-function validateForm(event)
+function validateForm()
 {
-    event.preventDefault();
         var emails = document.getElementById('email').value;
         var pass = document.getElementById('password').value;
         var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
@@ -40,7 +39,6 @@ function validateForm(event)
     var phone = document.getElementById('phone').value;
     var profile_pi = document.getElementById('selectImage').value;
     var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-
     var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
 
@@ -69,12 +67,17 @@ function validateForm(event)
         }
 
 
-     // Email validation
+        // Email validation
 
-    if(emails  == ""){
-        document.getElementById('Email_ids').innerHTML =" ** Please fill the Email";
-        return false;
-    }
+        if(emails  == ""){
+            document.getElementById('Email_ids').innerHTML =" ** Please fill the Email";
+            return false;
+        }
+        if(emailRegularExpression.test(emails) == false)
+        {
+            document.getElementById('Email_ids').innerHTML =" **InValid";
+            return false;
+        }
 
         // Password validation
         let passwordError = (

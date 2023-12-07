@@ -11,7 +11,7 @@ Route::middleware('guest')->group(function () {
     Route::get('verify/{id}',['App\Http\Controllers\LoginController','verify'])->name('verify');
 });
 
-Route::post('/checkUniqueEmail',['App\Http\Controllers\UserController','checkUniqueEmail'])->name('users/uniqueEmail');
+Route::post('/checkUniqueEmail',['App\Http\Controllers\UserController','checkUniqueEmail'])->name('checkUniqueEmail');
 
 Route::get('/register',['App\Http\Controllers\UserController','create'])->name('register');
 Route::post('users/store',['App\Http\Controllers\UserController','store'])->name('users/store');

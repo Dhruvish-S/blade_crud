@@ -31,12 +31,6 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-        // $checkEmail = User::where('email', $request['email'])->first();
-
-        // if ($checkEmail) {
-        //     // return response()->json(['isUnique233' => false,'email'=>$request['email']]);
-        //     return Redirect::back()->withErrors(['email' => 'Email is already used']);
-        // }
         $request->validate([
             'first_name' => 'required|alpha|min:2|max:20',
             'last_name' => 'required|alpha|min:2|max:20',

@@ -5,7 +5,7 @@
 <div class="container registerContainer">
     <h2>@if (isset($users)) Edit @else Add @endif User</h2>
     @if (isset($users))
-        <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm"   enctype="multipart/form-data">
+        <form action="{{ url('users/update/' . $users->id) }}" method="post" name="userForm" id="form"   enctype="multipart/form-data" onsubmit="return registerValidateForm()">
         @method('PUT')
     @else
         <form action="{{ url('users/store') }}" method="POST" enctype="multipart/form-data" id="form" name="userForm" onsubmit="return registerValidateForm()">
@@ -20,6 +20,7 @@
                       <li>{{ $errors->first('first_name') }}</li>
               @endif
               <span id="First_name"></span>
+              <span id="First_nameUpdate"></span>
         </div>
       </div>
       <div class="col-sm">
@@ -77,7 +78,7 @@
         <div class="col-sm">
             <div class="mb-3">
                 <label for="dob" class="form-label">Dob</label>
-                <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}" max="" name="dob">
+                <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}"  name="dob">
                 @if ($errors->has('dob'))
                     <li>{{ $errors->first('dob') }}</li>
                 @endif
@@ -90,8 +91,17 @@
         <div class="col-sm">
             <div class="mb-3 centerGender">
                 <label for="gender" class="form-label">Gender: </label>
-                <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male
-                <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female' || old('gender') == 'Female') checked @endif> Female
+                @if(isset($users->gender))
+
+                    <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if($users->gender == 'Female' ) checked @endif> Female
+                    <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if($users->gender == 'Male' ) checked @endif > Male
+                @else
+                    <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(old('gender') == 'Female') checked @endif> Female
+                    <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(old('gender') == 'Male') checked @endif > Male
+                @endif
+
+                {{-- <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female'  || old('gender') == 'Female') checked @endif> Female
+                <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male --}}
                 @if ($errors->has('gender'))
                     <li>{{ $errors->first('gender') }}</li>
                 @endif
@@ -146,14 +156,29 @@
 
     </form>
 </div>
-
-
 <script>
+    let users = '';
+    @isset($users)
+         users = {!! json_encode($users) !!};
+    @endisset
+         console.log(users == '');
+</script>
+
+
+{{-- <script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
     var formattedMaxDate = maxDate.toISOString().split('T')[0];
     document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script>
+</script> --}}
+
+
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dob').setAttribute('max', today);
+    </script>
+
+
 <script>
     selectImage.onchange = evt => {
         preview = document.getElementById('preview');
@@ -166,6 +191,7 @@
     }
 </script>
 {{-- Email exist or not validation --}}
+
 <script>
     $(document).ready(function(){
 
@@ -207,4 +233,5 @@
 
     });
     </script>
+
 @endsection

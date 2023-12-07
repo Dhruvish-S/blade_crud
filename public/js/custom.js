@@ -3,7 +3,6 @@ function validateForm()
 {
         var emails = document.getElementById('email').value;
         var pass = document.getElementById('password').value;
-        var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
         var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
         const emailError = (
@@ -18,7 +17,6 @@ function validateForm()
 
         const passwordError = (
             pass == "" ? "** Please fill the password field" :
-            !passwordRegularExpression.test(pass) ? "** Invalid password" :
             ""
         )
             document.getElementById('password12').innerHTML = passwordError;
@@ -28,19 +26,22 @@ function validateForm()
 }
 
 // Register Validation function
- function registerValidateForm()
+function registerValidateForm()
 {
     var first_name = document.getElementById('first_name').value;
     var last_name = document.getElementById('last_name').value;
     var emails = document.getElementById('email').value;
-    var pass = document.getElementById('password').value;
-    var confirm_pass = document.getElementById('confirm_password').value;
+
+    if(users == ''){
+        var pass = document.getElementById('password').value;
+        var confirm_pass = document.getElementById('confirm_password').value;
+    }
+
     var dobInput = document.getElementById('dob').value;
     var phone = document.getElementById('phone').value;
     var profile_pi = document.getElementById('selectImage').value;
     var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
 
     // First name validation
         const fnameError = (
@@ -79,8 +80,10 @@ function validateForm()
             return false;
         }
 
+    if(users == ''){
         // Password validation
         let passwordError = (
+
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
             !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
@@ -102,6 +105,7 @@ function validateForm()
         if(confirmError != ""){
             return false;
         }
+    }
 
     //Date of birth validation
         if(dobInput == ""){
@@ -118,10 +122,15 @@ function validateForm()
     if(age < 18){
         document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
             return false;
+    }else if(birthDate < 1970)
+    {
+        document.getElementById('Birth_date').innerHTML = "** Invalid Date";
+        return false;
     }
     else{
         document.getElementById('Birth_date').innerHTML ="";
     }
+
 
     //Gender validation
         if (!document.querySelector('input[name="gender"]:checked')) {

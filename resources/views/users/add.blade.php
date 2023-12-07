@@ -193,6 +193,7 @@
 {{-- Email exist or not validation --}}
 
 <script>
+
     $(document).ready(function(){
 
      $('#email').blur(function(){

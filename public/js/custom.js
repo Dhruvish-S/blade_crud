@@ -44,7 +44,7 @@ function validateForm(event)
     var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
 
-    First name validation
+    // First name validation
         const fnameError = (
             first_name == "" ? "** Please fill the First name field" :
             first_name.length <= 2 || first_name.length > 20 ? "*First name length must be between 2 and 20*" :
@@ -68,32 +68,39 @@ function validateForm(event)
             return false;
         }
 
-    // Email validation
 
-        let emailError = (
-            emails == "" ? "** Please fill the email" :
-            emailRegularExpression.test(emails) == false ? "*Invalid Position*" :
+     // Email validation
 
-            validateEmail(function(response) {
-                if(response.isUnique === false){
-                    emailError = 'Email already exists';
-                    $("#Email_ids").text(emailError);
-                    console.log('if');
-                    // return false
-                }
-                else if(response.isUnique === true){
-                    emailError = "";
-                    console.log('else');
-                    $("#Email_ids").text("");
+    if(emails  == ""){
+        document.getElementById('Email_ids').innerHTML =" ** Please fill the Email";
+        return false;
+    }
+    if(emailRegularExpression.test(emails) == false)
+    {
+        document.getElementById('Email_ids').innerHTML =" **InValid";
+        return false;
+    }
+    //      $.ajax({
+    //         url:'/checkUniqueEmail',
+    //         type: 'POST',
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         data: { email: emails },
+    //         success: function(data) {
+    //             if(data.isUnique === true)
+    //             {
+    //                 $("#Email_ids").text("");
+    //             }
+    //             else{
 
-                }
-            })
-
-        );
-        document.getElementById('Email_ids').innerHTML = emailError;
-        if(emailError != ""){
-            return false;
-        }
+    //                 $('#Email_ids').text('Email is exist!');
+    //             }
+    //         },
+    //         error: function (data) {
+    //             console.log('Error:', data);
+    //         }
+    //     });
 
         // Password validation
         let passwordError = (
@@ -107,22 +114,6 @@ function validateForm(event)
         if(passwordError != ""){
             return false;
         }
-
-
-  function validateEmail(callback) {
-    const emailInput = $('#email').val();
-         $.ajax({
-            url:'/checkUniqueEmail',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: { email: emailInput },
-            success: function(response) {
-                callback(response)
-            }
-        });
-    }
 
     // Confirm password validation
         const confirmError = (

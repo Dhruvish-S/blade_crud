@@ -146,6 +146,8 @@
 
     </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" type="text/javascript"></script>
+
 <script>
     var currentDate = new Date();
     var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
@@ -163,5 +165,46 @@
 
     }
 </script>
+<script>
+    $(document).ready(function(){
 
+     $('#email').blur(function(){
+      var Email_ids = '';
+      var email = $('#email').val();
+      var _token = $('input[name="_token"]').val();
+      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if(!filter.test(email))
+      {
+            $('#Email_ids').html('<label class="text-danger">Invalid Email</label>');
+            $('#email').addClass('has-error');
+            $('#register').attr('disabled', 'disabled');
+      }
+      else
+      {
+        $.ajax({
+            url:"/checkUniqueEmail",
+            method:"POST",
+            data:{email:email, _token:_token},
+            success:function(result)
+            {
+                if(result.isUnique === true)
+                {
+                    $('#Email_ids').html('');
+                    $('#email').removeClass('has-error');
+                    $('#register').attr('disabled', false);
+
+                }
+                else
+                {
+                    $('#Email_ids').html('<label class="text-danger">Email is exist</label>');
+                    $('#email').addClass('has-error');
+                    $('#register').attr('disabled', 'disabled');
+                }
+            }
+        })
+      }
+     });
+
+    });
+    </script>
 @endsection

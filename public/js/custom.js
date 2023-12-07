@@ -80,27 +80,6 @@ function validateForm(event)
         document.getElementById('Email_ids').innerHTML =" **InValid";
         return false;
     }
-    //      $.ajax({
-    //         url:'/checkUniqueEmail',
-    //         type: 'POST',
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         data: { email: emails },
-    //         success: function(data) {
-    //             if(data.isUnique === true)
-    //             {
-    //                 $("#Email_ids").text("");
-    //             }
-    //             else{
-
-    //                 $('#Email_ids').text('Email is exist!');
-    //             }
-    //         },
-    //         error: function (data) {
-    //             console.log('Error:', data);
-    //         }
-    //     });
 
         // Password validation
         let passwordError = (

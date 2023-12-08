@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Redirect;
 class UserController extends Controller
 {
     public function checkUniqueEmail(Request $request) {
-        $checkEmail = User::where('email', $request['email'])->first();
-
+        $checkEmail = User::where('email', $request['email']);
+        if($request->editUserId){
+            $checkEmail = $checkEmail->whereNot('id', $request->editUserId);
+        }
+        $checkEmail = $checkEmail->first();
         if ($checkEmail) {
             return response()->json(['isUnique' => false,'email'=>$request['email']]);
         }else{

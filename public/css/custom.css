@@ -46,7 +46,6 @@ span{
 }
 .addUserDashboard{
     float: right;
-    margin-right: 91px;
     margin-top:10px;
     margin-bottom:30px;
 }
@@ -82,7 +81,7 @@ li{
 /* dashboard css */
 
 .dashboardContainer {
-    margin-left: 6% !important;
+
     border:none;
 }
 

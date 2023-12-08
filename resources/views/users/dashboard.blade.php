@@ -2,12 +2,17 @@
 @section('title')
     User List
 @endsection
+<div class="text textLeft">
+    <h3 class="mainHeading">Welecome to the dashboard : {{ Auth::user()->first_name }}</h3>
+    <a class="btn btn-primary addLogout"
+        href="{{ url('logout') }}">LogOut</a>
+    <hr>
+</div>
 @section('content')
 
     <div class="container dashboardContainer">
         <a class="btn btn-primary addUserDashboard"
             href="{{ url('register') }}">Add User</a>
-        <a class="btn btn-primary addLogoutDashboard"  href="{{ url('logout') }}">LogOut</a>
         <table id="example" class="display table-responsive w-100">
             <thead>
                 <tr>

@@ -78,7 +78,7 @@
         <div class="col-sm">
             <div class="mb-3">
                 <label for="dob" class="form-label">Dob</label>
-                <input type="date" class="form-control" id="dob" value="{{ old('dob', $users->dob ?? '') }}"  name="dob">
+                <input type="date" class="form-control" onchange="validateAge()" id="dob" value="{{ old('dob', $users->dob ?? '') }}"  name="dob">
                 @if ($errors->has('dob'))
                     <li>{{ $errors->first('dob') }}</li>
                 @endif
@@ -143,7 +143,7 @@
         <div class="col-sm">
             <div class="mb-3 bottomButton">
                 @if(isset($users))
-                    <button type="submit" class="btn btn-primary" name="submit" value="submit" >Update</button>
+                    <button type="submit" class="btn btn-primary" name="submit" value="submit" id="update">Update</button>
                     <a class="btn btn-primary" href="{{ url('users/dashboard') }}">Back</a>
                     <a class="btn btn-primary" href="{{ url('change-password/'.$users->id) }}">Change Password</a>
                 @else
@@ -156,29 +156,16 @@
 
     </form>
 </div>
+
 <script>
     let users = '';
     @isset($users)
          users = {!! json_encode($users) !!};
     @endisset
          console.log(users == '');
+         console.log(users['id']);
+         console.log(users);
 </script>
-
-
-{{-- <script>
-    var currentDate = new Date();
-    var maxDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
-    var formattedMaxDate = maxDate.toISOString().split('T')[0];
-    document.getElementById("dob").setAttribute("max", formattedMaxDate);
-</script> --}}
-
-
-    <script>
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('dob').setAttribute('max', today);
-    </script>
-
-
 <script>
     selectImage.onchange = evt => {
         preview = document.getElementById('preview');
@@ -205,13 +192,15 @@
             $('#Email_ids').html('<label class="textColorAjax">Invalid Email</label>');
             $('#email').addClass('has-error');
             $('#register').attr('disabled', 'disabled');
+            $('#update').attr('disabled', 'disabled');
       }
       else
       {
         $.ajax({
             url:"/checkUniqueEmail",
             method:"POST",
-            data:{email:email, _token:_token},
+            data:{email:email, _token:_token, editUserId:users['id']},
+
             success:function(result)
             {
                 if(result.isUnique === true)
@@ -219,12 +208,14 @@
                     $('#Email_ids').html('');
                     $('#email').removeClass('has-error');
                     $('#register').attr('disabled', false);
+                    $('#update').attr('disabled', false);
                 }
                 else
                 {
                     $('#Email_ids').html('<label class="textColorAjax">Email is exist</label>');
                     $('#email').addClass('has-error');
                     $('#register').attr('disabled', 'disabled');
+                    $('#update').attr('disabled', 'disabled');
                 }
             }
         })
@@ -233,5 +224,35 @@
 
     });
     </script>
+
+    {{-- dateofbirth select 18 years --}}
+<script>
+    $(function(){
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;// jan=0; feb=1 .......
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear() - 18;
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+    	var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + month + '-' + day;
+    	$('#dob').attr('max', maxDate);
+    });
+</script>
+
+<script>
+    function validateAge() {
+      var selectedDate = new Date(document.getElementById('dob').value);
+      var minDate = new Date();
+      minDate.setFullYear(minDate.getFullYear() - 18);
+      if (selectedDate > minDate) {
+        document.getElementById('dob').value = '';
+        $('#Birth_date').html('<label class="textColorAjax">The date difference is less than -18 years ...</label>');
+      }
+    }
+  </script>
 
 @endsection

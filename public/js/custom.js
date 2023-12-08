@@ -110,25 +110,22 @@ function registerValidateForm()
             document.getElementById('Birth_date').innerHTML =" ** Please fill the Date of birth field";
             return false;
         }
+        else{
+            document.getElementById('Birth_date').innerHTML ="";
+        }
 
-    let currentDate = new Date();
-	let birthDate = new Date(dobInput);
-	// return if age is over 18
-	let diff = new Date(currentDate - birthDate)
-	let age = Math.abs(diff.getUTCFullYear() - 1970);
-
-    if(age < 18){
-        document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
-        return false;
-    }
-    else if(birthDate < 1970)
-    {
-        document.getElementById('Birth_date').innerHTML = "** Invalid Date";
-        return false;
-    }
-    else{
-        document.getElementById('Birth_date').innerHTML ="";
-    }
+        // let currentDate = new Date();
+        // let birthDate = new Date(dobInput);
+        // // return if age is over 18
+        // let diff = new Date(currentDate - birthDate)
+        // let age = Math.abs(diff.getUTCFullYear() - 1970);
+        // if(birthDate < 1970){
+        //     document.getElementById('Birth_date').innerHTML = "** Invalid Date";
+        //     return false;
+        // }
+        // else{
+        //     document.getElementById('Birth_date').innerHTML ="";
+        // }
 
 if(users == ''){
     //Gender validation

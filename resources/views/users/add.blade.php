@@ -227,34 +227,46 @@
 
     {{-- dateofbirth select 18 years --}}
 <script>
-    // $(function(){
-    //     var dtToday = new Date();
+    $(function(){
+        var dtToday = new Date();
 
-    //     var month = dtToday.getMonth() + 1;// jan=0; feb=1 .......
-    //     var day = dtToday.getDate();
-    //     var year = dtToday.getFullYear() - 18;
-    //     if(month < 10)
-    //         month = '0' + month.toString();
-    //     if(day < 10)
-    //         day = '0' + day.toString();
-    // 	var minDate = year + '-' + month + '-' + day;
-    //     var maxDate = year + '-' + month + '-' + day;
-    // 	$('#dob').attr('max', maxDate);
-    // });
+        var month = dtToday.getMonth() + 1;// jan=0; feb=1 .......
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear() - 18;
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+    	var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + month + '-' + day;
+    	$('#dob').attr('max', maxDate);
+    });
 
 </script>
-
-
 <script>
     function validateAge() {
-      var selectedDate = new Date(document.getElementById('dob').value);
-      var minDate = new Date();
-      minDate.setFullYear(minDate.getFullYear() - 18);
-      if (selectedDate > minDate) {
-        document.getElementById('dob').value = '';
-        $('#Birth_date').html('<label class="textColorAjax">The date difference is less than -18 years ...</label>');
-      }
+
+        var dobInput = document.getElementById('dob').value;
+        var validationMessage = document.getElementById('Birth_date');
+        var dob = new Date(dobInput);
+        var currentDate = new Date();
+        var age = currentDate.getFullYear() - dob.getFullYear();
+        var limit = new Date(01-01-1970);
+
+        if (currentDate.getMonth() < dob.getMonth() || (currentDate.getMonth() === dob.getMonth() && currentDate.getDate() < dob.getDate())) {
+             age--;
+        }
+        if(age < 18){
+                document.getElementById('dob').value = '';
+                $('#Birth_date').html('<label class="textColorAjax">The date difference is less than 18 years ...</label>');
+        }
+        else
+        {
+            $('#Birth_date').html('');
+        }
+
     }
   </script>
+
 
 @endsection

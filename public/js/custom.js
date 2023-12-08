@@ -69,7 +69,6 @@ function registerValidateForm()
 
 
     // Email validation
-
         if(emails  == ""){
             document.getElementById('Email_ids').innerHTML =" ** Please fill the Email";
             return false;
@@ -165,7 +164,7 @@ if(users == ''){
         var fileName = fileInput.value;
         var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
         if (!allowedExtensions.exec(fileName)) {
-            document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed";
+            document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed...";
             return false;
         }
 }
@@ -173,16 +172,10 @@ else{
     var fileInput = document.getElementById("selectImage");
     var fileName = fileInput.value;
     var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-    if(users == "")
+    if(users != "")
     {
-        if (!allowedExtensions.exec(fileName)) {
-            document.getElementById('profile_image').innerHTML = "** hi Only JPG, JPEG, and PNG files are allowed";
-            return false;
-        }
-    }
-    else{
         if (fileName && !allowedExtensions.exec(fileName)) {
-            document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed.....";
+            document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed.........";
             return false;
         }
     }

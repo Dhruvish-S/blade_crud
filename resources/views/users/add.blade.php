@@ -251,8 +251,6 @@
         var dob = new Date(dobInput);
         var currentDate = new Date();
         var age = currentDate.getFullYear() - dob.getFullYear();
-        var limit = new Date(01-01-1970);
-
         if (currentDate.getMonth() < dob.getMonth() || (currentDate.getMonth() === dob.getMonth() && currentDate.getDate() < dob.getDate())) {
              age--;
         }
@@ -260,13 +258,7 @@
                 document.getElementById('dob').value = '';
                 $('#Birth_date').html('<label class="textColorAjax">The date difference is less than 18 years ...</label>');
         }
-        else
-        {
-            $('#Birth_date').html('');
-        }
 
     }
   </script>
-
-
 @endsection

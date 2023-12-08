@@ -68,7 +68,7 @@ function registerValidateForm()
         }
 
 
-        // Email validation
+    // Email validation
 
         if(emails  == ""){
             document.getElementById('Email_ids').innerHTML =" ** Please fill the Email";
@@ -81,9 +81,8 @@ function registerValidateForm()
         }
 
     if(users == ''){
-        // Password validation
+    // Password validation
         let passwordError = (
-
             pass == "" ? "** Please fill the password field" :
             pass.length<8 ? "** Passwords length must be 8 Characters" :
             !passwordRegularExpression.test(pass) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
@@ -121,8 +120,9 @@ function registerValidateForm()
 
     if(age < 18){
         document.getElementById('Birth_date').innerHTML = "** The date difference is less than -18 years";
-            return false;
-    }else if(birthDate < 1970)
+        return false;
+    }
+    else if(birthDate < 1970)
     {
         document.getElementById('Birth_date').innerHTML = "** Invalid Date";
         return false;
@@ -131,7 +131,7 @@ function registerValidateForm()
         document.getElementById('Birth_date').innerHTML ="";
     }
 
-
+if(users == ''){
     //Gender validation
         if (!document.querySelector('input[name="gender"]:checked')) {
             document.getElementById('radio').innerHTML = " ** Please select the gender";
@@ -140,6 +140,7 @@ function registerValidateForm()
         else{
             document.getElementById('radio').innerHTML = "";
         }
+}
 
     //Phone validation
         const phoneError = (
@@ -155,6 +156,7 @@ function registerValidateForm()
 
     // Profile pic
 
+if(users == ''){
         if(profile_pi == ""){
             document.getElementById('profile_image').innerHTML =" ** Please select image";
             return false;
@@ -166,6 +168,25 @@ function registerValidateForm()
             document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed";
             return false;
         }
+}
+else{
+    var fileInput = document.getElementById("selectImage");
+    var fileName = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if(users == "")
+    {
+        if (!allowedExtensions.exec(fileName)) {
+            document.getElementById('profile_image').innerHTML = "** hi Only JPG, JPEG, and PNG files are allowed";
+            return false;
+        }
+    }
+    else{
+        if (fileName && !allowedExtensions.exec(fileName)) {
+            document.getElementById('profile_image').innerHTML = "** Only JPG, JPEG, and PNG files are allowed.....";
+            return false;
+        }
+    }
+}
 
 }
 

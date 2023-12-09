@@ -28,6 +28,7 @@ function validateForm()
 // Register Validation function
 function registerValidateForm()
 {
+    var firstLetterCapitalRegex = /^[A-Z][a-z]*$/;
     var first_name = document.getElementById('first_name').value;
     var last_name = document.getElementById('last_name').value;
     var emails = document.getElementById('email').value;
@@ -44,10 +45,12 @@ function registerValidateForm()
     var emailRegularExpression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
     // First name validation
-        const fnameError = (
+
+        let fnameError = (
             first_name == "" ? "** Please fill the First name field" :
             first_name.length <= 2 || first_name.length > 20 ? "*First name length must be between 2 and 20*" :
             !isNaN(first_name) ? "** only characters are allowed" :
+            !firstLetterCapitalRegex.test(first_name) ? "** First letter must be capital" :
             ""
         );
         document.getElementById('First_name').innerHTML = fnameError;
@@ -56,10 +59,11 @@ function registerValidateForm()
         }
 
     // Last name validation
-        const lnameError = (
+        let lnameError = (
             last_name == "" ? "** Please fill the Last name field" :
             last_name.length <= 2 || last_name.length > 20 ? "*Last name length must be between 2 and 20*" :
                 !isNaN(last_name) ? "** only characters are allowed" :
+                !firstLetterCapitalRegex.test(last_name) ? "** First letter must be capital" :
                 ""
         );
         document.getElementById('Last_name').innerHTML = lnameError;
@@ -79,6 +83,7 @@ function registerValidateForm()
             return false;
         }
 
+
     if(users == ''){
     // Password validation
         let passwordError = (
@@ -94,7 +99,7 @@ function registerValidateForm()
         }
 
     // Confirm password validation
-        const confirmError = (
+        let confirmError = (
             confirm_pass == "" ? "** Please fill the confirm pass field" :
             pass !=confirm_pass ? "** Password does not match the confirm password" :
             ""
@@ -135,7 +140,7 @@ if(users == ''){
 }
 
     //Phone validation
-        const phoneError = (
+        let phoneError = (
             phone == "" ? "** Please add the Phone number" :
             isNaN(phone) ? "**  user must write digits only not characters" :
             phone.length!=10 ? "** Mobile Number must be 10 digits only" :
@@ -177,3 +182,49 @@ else{
 }
 
 
+function changePassword()
+{
+    var cuPassword = document.getElementById('current_password').value;
+    var passwordRegularExpression = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+    let CurrentPasswordError = (
+        cuPassword == "" ? "** Please fill the current password field" :
+        cuPassword.length<8 ? "** Passwords length must be 8 Characters" :
+        !passwordRegularExpression.test(cuPassword) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
+        ""
+    )
+    document.getElementById('odPassword').innerHTML = CurrentPasswordError;
+
+    if(CurrentPasswordError != ""){
+        return false;
+    }
+
+
+    var newPassword = document.getElementById('password').value;
+
+    let newPasswordError = (
+        newPassword == "" ? "** Please fill the new password field" :
+        newPassword.length<8 ? "** Passwords length must be 8 Characters" :
+        !passwordRegularExpression.test(newPassword) ? "** Password must contain at least one uppercase, one lowercase, one number and one special character" :
+        ""
+    )
+    document.getElementById('nPassword').innerHTML = newPasswordError;
+
+    if(newPasswordError != ""){
+        return false;
+    }
+
+    var confirmPassword = document.getElementById('password_confirmation').value;
+
+    let confirmPasswordError = (
+        confirmPassword == "" ? "** Please fill the confirm pass field" :
+        newPassword !=confirmPassword ? "** Password does not match the confirm password" :
+        ""
+    );
+    document.getElementById('cPassword').innerHTML = confirmPasswordError;
+    if(confirmPasswordError != ""){
+        return false;
+    }
+
+
+}

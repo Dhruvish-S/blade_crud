@@ -13,7 +13,7 @@
     <div class="container dashboardContainer">
         <a class="btn btn-primary addUserDashboard"
             href="{{ url('register') }}">Add User</a>
-        <table id="example" class="display table-responsive w-100">
+        <table id="example" class="display table-responsive w-100" data-order='[[ 0, "desc" ]]'>
             <thead>
                 <tr>
                     <th>id</th>
@@ -42,7 +42,12 @@
                     { data: 'first_name', name: 'first_name' },
                     { data: 'last_name', name: 'last_name' },
                     { data: 'email', name: 'email' },
-                    { data: 'dob', name: 'dob' },
+                    {
+                        data: 'dob', name: 'dob',
+                        "render": function(data) {
+                            return moment(data).format('DD-MM-YYYY');
+                         },
+                     },
                     { data: 'gender', name: 'gender' },
                     { data: 'phone', name: 'phone' },
                     {

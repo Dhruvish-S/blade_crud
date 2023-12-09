@@ -16,3 +16,4 @@
 
 8. php artisan queue:work      == queue run
 
+9. add a database email filed select and after bottom side unique button click validation

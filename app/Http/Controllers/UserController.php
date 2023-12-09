@@ -35,8 +35,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|alpha|min:2|max:20',
-            'last_name' => 'required|alpha|min:2|max:20',
+            'first_name' => 'required|alpha|min:2|max:20|regex:/^[A-Z][a-z]*$/',
+            'last_name' => 'required|alpha|min:2|max:20|regex:/^[A-Z][a-z]*$/',
             'email' => 'required|email|email:rfc,dns|unique:users,email',
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'confirm_password' => 'required|same:password',
@@ -128,8 +128,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => 'required|alpha|min:2|max:20',
-            'last_name' => 'required|alpha|min:2|max:20',
+            'first_name' => 'required|alpha|min:2|max:20|regex:/^[A-Z][a-z]*$/',
+            'last_name' => 'required|alpha|min:2|max:20|regex:/^[A-Z][a-z]*$/',
             'email' => 'email:rfc,dns|required|email',
             'dob' => 'required|date|before:-18 years',
             'gender' => 'required',
@@ -178,8 +178,11 @@ class UserController extends Controller
 
     public function changePassword(Request $request, $id)
     {
+        $userServices = new UserServices();
+        $query = $userServices->getById($id);
+
         $id = $request->id;
-        return view('users/changepassword', ['id' => $id]);
+        return view('users/changepassword', ['id' => $id, 'users' => $query[0]]);
     }
     public function changePasswordSave(Request $request, $id)
     {

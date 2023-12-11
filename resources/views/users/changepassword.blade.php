@@ -23,6 +23,7 @@
                 <label for="oldpassword" class="form-label">Current Password</label>
                 <input type="password" class="form-control" id="current_password" name="current_password">
                 <span id="odPassword"></span>
+                <h1>Hello dhruvish</h1>
             </div>
             <div class="mb-3">
                 <label for="newpassword" class="form-label">New Password</label>

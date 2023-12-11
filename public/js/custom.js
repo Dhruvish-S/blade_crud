@@ -5,22 +5,22 @@ function validateForm()
         var pass = document.getElementById('password').value;
         var email_regular_expression = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-        const emailError = (
+        const email_error = (
                 emails == "" ? "** Please fill the email field" :
                 email_regular_expression.test(emails) == false ? "** Invalid email address" :
                     ""
         );
-        document.getElementById('email_ids').innerHTML = emailError;
-            if(emailError != ""){
+        document.getElementById('email_ids').innerHTML = email_error;
+            if(email_error != ""){
                 return false;
             }
 
-        const passwordError = (
+        const password_error = (
             pass == "" ? "** Please fill the password field" :
             ""
         )
-            document.getElementById('password12').innerHTML = passwordError;
-        if(passwordError != ""){
+            document.getElementById('password12').innerHTML = password_error;
+        if(password_error != ""){
             return false;
         }
 }

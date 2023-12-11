@@ -98,9 +98,6 @@
                     <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(old('gender') == 'Female') checked @endif> Female
                     <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(old('gender') == 'Male') checked @endif > Male
                 @endif
-
-                {{-- <input class="form-check-input" type="radio" id="Female"  name="gender" value="Female" @if(isset($users->gender) == 'Female'  || old('gender') == 'Female') checked @endif> Female
-                <input class="form-check-input" type="radio" id="Male"  name="gender" value="Male" @if(isset($users->gender) == 'Male' || old('gender') == 'Male') checked @endif > Male --}}
                 @if ($errors->has('gender'))
                     <li>{{ $errors->first('gender') }}</li>
                 @endif
@@ -125,13 +122,13 @@
                 <label for="selectImage" class="form-label">Profile_pic</label>
                 <input type="file" value="{{ old('profile_pic') }}" accept="image/*"  class="form-control" id="selectImage" name="profile_pic">
                @if(isset($users->profile_pic))
-                    <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" class="UpdatepreviewImage" alt="" width="100" height="100">
+                    <img src="{{asset('storage/'. $users->profile_pic)}}" id="preview" class="UpdatepreviewImage" alt="updatePreviewImages" width="100" height="100">
                     @endif
                 @if ($errors->has('profile_pic'))
                     <li>{{ $errors->first('profile_pic') }}</li>
                 @endif
 
-                <img id="preview" class="previewImages" width="100" height="100" src="#" alt="your image" class="mt-3"/>
+                <img id="preview" class="previewImages" width="100" height="100" src="#" alt="profilePic" class="mt-3"/>
                 <span id="profile_image"></span>
 
             </div>

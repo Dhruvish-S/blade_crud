@@ -128,7 +128,6 @@ function registerValidateForm()
             document.getElementById('Birth_date').innerHTML ="";
         }
 
-if(users == ''){
     //Gender validation
         if (!document.querySelector('input[name="gender"]:checked')) {
             document.getElementById('radio').innerHTML = " ** Please select the gender";
@@ -137,7 +136,7 @@ if(users == ''){
         else{
             document.getElementById('radio').innerHTML = "";
         }
-}
+
 
     //Phone validation
         let phoneError = (

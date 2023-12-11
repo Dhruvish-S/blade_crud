@@ -108,6 +108,30 @@ li{
     float:right;
 }
 
+.password-container{
+    width: 400px;
+    position: relative;
+  }
+  .password-container input[type="password"],
+  .password-container input[type="text"]{
+    width: 100%;
+    padding: 12px 36px 12px 12px;
+    box-sizing: border-box;
+  }
+  .fa-eye{
+    position: absolute;
+    top: 28%;
+    right: 4%;
+    cursor: pointer;
+    color: lightgray;
+  }
+  .togglePassword{
+    float: right;
+    margin-top: -25px;
+    margin-right: 13px;
+}
+
+
 /* app.blade.php */
 .textLeft{
     margin-left:40px;

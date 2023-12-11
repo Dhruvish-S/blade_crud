@@ -8,12 +8,14 @@
 
 4. php artisan key:generate;
 
-5. php artisan optimize:clear;
+5. change the database name in env file;
 
-6. php artisan serve;
+6. php artisan make:migration users table;
 
-7. change the database name in env file;
+7. php artisan migrate;
 
-8. php artisan make:migration users table;
+8. php artisan storage:link;
 
-9. php artisan migrate;
+9. php artisan optimize:clear;
+
+10. php artisan serve;

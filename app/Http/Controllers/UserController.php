@@ -176,13 +176,12 @@ class UserController extends Controller
 
     }
 
-    public function changePassword(Request $request, $id)
+    public function changePassword(Request $request)
     {
         $userServices = new UserServices();
-        $query = $userServices->getById($id);
 
         $id = $request->id;
-        return view('users/changepassword', ['id' => $id, 'users' => $query[0]]);
+        return view('users/changepassword', ['id' => $id]);
     }
     public function changePasswordSave(Request $request, $id)
     {

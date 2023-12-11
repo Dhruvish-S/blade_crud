@@ -58,7 +58,11 @@
                         }
                     },
                     { data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
+                ],
+                columnDefs: [ {
+                    'targets': [7],
+                    'orderable': false,
+                }]
             });
 
         });

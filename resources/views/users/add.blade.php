@@ -185,7 +185,7 @@
       var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(!filter.test(email))
       {
-            $('#Email_ids').html('<label class="textColorAjax">Invalid Email</label>');
+            $('#Email_ids').html('<label class="textColorAjax">** Invalid Email format</label>');
             $('#email').addClass('has-error');
             $('#register').attr('disabled', 'disabled');
             $('#update').attr('disabled', 'disabled');
@@ -208,7 +208,7 @@
                 }
                 else
                 {
-                    $('#Email_ids').html('<label class="textColorAjax">Email is exist</label>');
+                    $('#Email_ids').html('<label class="textColorAjax">** Email is already exist</label>');
                     $('#email').addClass('has-error');
                     $('#register').attr('disabled', 'disabled');
                     $('#update').attr('disabled', 'disabled');
@@ -253,9 +253,8 @@
         }
         if(age < 18){
                 document.getElementById('dob').value = '';
-                $('#Birth_date').html('<label class="textColorAjax">The date difference is less than 18 years ...</label>');
+                $('#Birth_date').html('<label class="textColorAjax">** Invalid DOB! User must be at least 18 years old..</label>');
         }
-
     }
   </script>
 @endsection
